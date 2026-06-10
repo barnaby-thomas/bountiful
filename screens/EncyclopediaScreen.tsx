@@ -1,7 +1,7 @@
 import {View, Text, StyleSheet, FlatList, Image, TouchableOpacity} from 'react-native'
 import {colours} from '../const/colours'
 import {fonts} from '../const/fonts'
-import { plants} from '../const/plants'
+import {plants} from '../const/plants'
 
 export default function EncyclopediaScreen() {
     return (
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     cardName: {
         fontFamily: fonts.bodyBold,
         fontWeight: 'bold',
-        fontSize: 14,
+        fontSize: 11,
         color: colours.black,
     },
 })
