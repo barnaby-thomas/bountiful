@@ -4,6 +4,10 @@ import { StatusBar } from 'expo-status-bar';
 import { Text, View } from 'react-native';
 import { fonts } from './const/fonts';
 import { colours } from './const/colours';
+import { useFonts } from 'expo-font';
+import { Platypi_400Regular, Platypi_700Bold } from '@expo-google-fonts/platypi';
+import { DMSans_400Regular, DMSans_500Medium } from '@expo-google-fonts/dm-sans';
+import EncyclopediaScreen from './screens/EncyclopediaScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -19,17 +23,17 @@ function ScanScreen() {
          </View>;
 }
 
-function EncyclopediaScreen() {
-  return (
-    <View style={{flex:1, alignItems:'center', justifyContent:'center', backgroundColor: colours.background}}>
-      <Text style={{fontFamily: fonts.heading, fontSize:28}}>My Plants</Text>
-      <Text style={{fontFamily: fonts.body, fontSize:16}}>Your collection</Text>
-    </View>
-  );
-}
-
 export default function App() {
 
+  const [fontsLoaded] = useFonts({
+  Platypi_400Regular,
+  Platypi_700Bold,
+  DMSans_400Regular,
+  DMSans_500Medium,
+  });
+
+  if (!fontsLoaded) return null;
+  
   return (
     <NavigationContainer>
       <StatusBar style="auto" />
