@@ -51,18 +51,23 @@ const styles = StyleSheet.create({
     card: {
         flex: 1,
         margin: 6,
-        borderRadius: 12,
+        borderRadius: 15,
         backgroundColor: colours.white,
         overflow: 'hidden',
+        shadowColor: '#000000',
+        shadowOffset: {width: 0, height: 2},
+        shadowOpacity: 0.2,
+        shadowRadius: 8,
+        elevation: 4,
     },
     
     cardImage: {
         width: '100%',
-        height: 70,
+        height: 75,
     },
     
     cardInfo: {
-        padding: 10,
+        padding: 8,
     },
     
     cardCategory: {

@@ -8,20 +8,10 @@ import { useFonts } from 'expo-font';
 import { Platypi_400Regular, Platypi_700Bold } from '@expo-google-fonts/platypi';
 import { DMSans_400Regular, DMSans_500Medium } from '@expo-google-fonts/dm-sans';
 import EncyclopediaScreen from './screens/EncyclopediaScreen';
+import MapScreen from './screens/MapScreen';
+import ScanScreen from './screens/ScanScreen';
 
 const Tab = createBottomTabNavigator();
-
-function MapScreen() {
-  return <View style={{flex:1,alignItems:'center',justifyContent:'center', backgroundColor: colours.background}}>
-            <Text>Map</Text>
-          </View>;
-}
-
-function ScanScreen() {
-  return <View style={{flex:1,alignItems:'center',justifyContent:'center', backgroundColor: colours.background}}>
-            <Text>Scan</Text>
-         </View>;
-}
 
 export default function App() {
 
