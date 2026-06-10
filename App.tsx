@@ -2,7 +2,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StatusBar } from 'expo-status-bar';
 import { Text, View } from 'react-native';
-import { useFonts } from 'expo-font';
 import { fonts } from './const/fonts';
 import { colours } from './const/colours';
 
