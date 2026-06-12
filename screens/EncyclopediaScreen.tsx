@@ -1,4 +1,4 @@
-import {View, Text, StyleSheet, FlatList, Image, TouchableOpacity, TextInput} from 'react-native'
+import {View, Text, StyleSheet, FlatList, Image, TouchableOpacity, TextInput, ScrollView} from 'react-native'
 import {colours} from '../const/colours'
 import {fonts} from '../const/fonts'
 import {plants} from '../const/plants'
@@ -6,13 +6,15 @@ import {plants} from '../const/plants'
 export default function EncyclopediaScreen() {
     const unlockedPlants = plants.filter(plant => plant.unlocked === true).length
     const totalPlants = plants.length
+    const plantCategories = ['All', '🍄Fungi', '🫐Berries', '🌸Flowers', '🌿Leaves', '🏝️Seaside', '🌳Woodland'];
+
     return (
         <View style={styles.container}>
             <View style={styles.headerContainer}>
                 <View style={styles.headingRow}>
                     <Text style={styles.heading}>My Plants 🌸</Text>
                     <View style={styles.foundBadge}>
-                        <Text style={styles.foundText}>{unlockedPlants}/500 found</Text>
+                        <Text style={styles.foundText}>{unlockedPlants}/{totalPlants} found</Text>
                     </View>
                 </View>
                 <View style={styles.searchBar}>
@@ -24,6 +26,17 @@ export default function EncyclopediaScreen() {
                     </View>
                 </View>
             </View>
+            <ScrollView 
+                horizontal={true} 
+                showsHorizontalScrollIndicator={false}
+                style={styles.filterList}>
+
+                {plantCategories.map(category => (
+                    <TouchableOpacity key={category} style={styles.filterPill}>
+                    <Text style={styles.filterText}>{category}</Text>
+                    </TouchableOpacity>
+                ))}
+            </ScrollView>
             <FlatList
                 data={plants}
                 numColumns={2}
@@ -114,6 +127,29 @@ const styles = StyleSheet.create({
         height: 6,
         backgroundColor: colours.greenText,
         borderRadius: 3,
+    },
+
+    filterList: {
+        marginTop: 8,
+        marginBottom: 8,
+        marginHorizontal: 4,
+        flexGrow: 0,
+    },
+
+    filterPill: {
+        backgroundColor: colours.searchBarBackground,
+        margin: 3,
+        paddingHorizontal: 12,
+        paddingVertical: 3,
+        borderRadius:20,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+
+    filterText: {
+        color: colours.greenText,
+        fontSize: 12,
+        fontFamily: fonts.body
     },
     
     card: {
