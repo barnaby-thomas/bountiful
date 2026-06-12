@@ -3,9 +3,6 @@ import {colours} from '../const/colours'
 import {fonts} from '../const/fonts'
 import {plants} from '../const/plants'
 
-const unlockedCount = plants.filter(plant => plant.unlocked === true).length
-const totalCount = plants.length
-
 export default function EncyclopediaScreen() {
     const unlockedCount = plants.filter(plant => plant.unlocked === true).length
     const totalCount = plants.length
@@ -16,8 +13,7 @@ export default function EncyclopediaScreen() {
                 <TextInput placeholder = "Search plants..."/>
                 <Text style={styles.subheading}>{unlockedCount}/{totalCount} found</Text>
                 <View style={styles.bar1}>
-                    <View style={styles.bar2}>
-
+                    <View style={[styles.bar2, { width: `${(unlockedCount / totalCount) * 100}%` }]}>
                     </View>
                 </View>
             </View>
@@ -84,7 +80,6 @@ const styles = StyleSheet.create({
         height: 6,
         backgroundColor: colours.greenText,
         borderRadius: 3,
-        width: `${(unlockedCount / totalCount) * 100}%`,
     },
     
     card: {
