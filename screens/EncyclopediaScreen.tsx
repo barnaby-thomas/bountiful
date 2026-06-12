@@ -55,7 +55,9 @@ function PlantCard({ plant }: { plant: typeof plants[0] }) {
         style={styles.cardImage}
       />
       <View style={styles.cardInfo}>
-        <Text style={styles.cardCategory}>{plant.category}</Text>
+        <View style={styles.cardCategoryPill}>
+            <Text style={styles.cardCategory}>{plant.category}</Text>
+        </View>
         <Text style={styles.cardName}>{plant.name}</Text>
       </View>
     </TouchableOpacity>
@@ -173,12 +175,20 @@ const styles = StyleSheet.create({
     cardInfo: {
         padding: 8,
     },
+
+    cardCategoryPill: {
+        backgroundColor: colours.searchBarBackground,
+        borderRadius: 15,
+        paddingHorizontal: 12,
+        alignSelf: 'flex-start',
+        paddingVertical: 3
+    },
     
     cardCategory: {
         fontFamily: fonts.body,
-        fontSize: 11,
+        fontSize: 9,
         color: colours.greenText,
-        marginBottom: 4,
+        
     },
    
     cardName: {
