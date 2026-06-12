@@ -17,7 +17,7 @@ export const plants = [
     id: '3',
     name: 'Wild Garlic',
     category: 'Leaves',
-    image: 'https://images.unsplash.com/photo-1599598425947-5202edd56fdb?w=400',
+    image: 'https://unsplash.com/photos/green-leaves-on-brown-tree-branches-VI_PCpBIWpo',
     unlocked: true,
   },
   {
@@ -38,7 +38,7 @@ export const plants = [
     id: '6',
     name: 'Jelly Ear',
     category: 'Fungi',
-    image: 'https://images.unsplash.com/photo-1504701954957-2010ec3bcec1?w=400',
+    image: '',
     unlocked: false,
   },
 ];
