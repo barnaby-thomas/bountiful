@@ -4,16 +4,16 @@ import {fonts} from '../const/fonts'
 import {plants} from '../const/plants'
 
 export default function EncyclopediaScreen() {
-    const unlockedCount = plants.filter(plant => plant.unlocked === true).length
-    const totalCount = plants.length
+    const unlockedPlants = plants.filter(plant => plant.unlocked === true).length
+    const totalPlants = plants.length
     return (
         <View style={styles.container}>
             <View style={styles.headerContainer}>
                 <Text style={styles.heading}>My Plants</Text>
                 <TextInput placeholder = "Search plants..."/>
-                <Text style={styles.subheading}>{unlockedCount}/{totalCount} found</Text>
+                <Text style={styles.subheading}>{unlockedPlants}/{totalPlants} found</Text>
                 <View style={styles.bar1}>
-                    <View style={[styles.bar2, { width: `${(unlockedCount / totalCount) * 100}%` }]}>
+                    <View style={[styles.bar2, { width: `${(unlockedPlants / totalPlants) * 100}%` }]}>
                     </View>
                 </View>
             </View>
