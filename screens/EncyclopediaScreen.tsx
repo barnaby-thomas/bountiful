@@ -9,8 +9,15 @@ export default function EncyclopediaScreen() {
     return (
         <View style={styles.container}>
             <View style={styles.headerContainer}>
-                <Text style={styles.heading}>My Plants</Text>
-                <TextInput placeholder = "Search plants..."/>
+                <View style={styles.headingRow}>
+                    <Text style={styles.heading}>My Plants 🌸</Text>
+                    <View style={styles.foundBadge}>
+                        <Text style={styles.foundText}>{unlockedPlants}/500 found</Text>
+                    </View>
+                </View>
+                <View style={styles.searchBar}>
+                    <TextInput placeholder = "Search plants..."/>
+                </View>
                 <Text style={styles.subheading}>{unlockedPlants}/{totalPlants} found</Text>
                 <View style={styles.bar1}>
                     <View style={[styles.bar2, { width: `${(unlockedPlants / totalPlants) * 100}%` }]}>
@@ -58,7 +65,27 @@ const styles = StyleSheet.create({
         fontFamily: fonts.heading,
         fontSize: 28,
         color: colours.greenText,
-        marginBottom: 10
+        marginBottom: 5
+    },
+
+    headingRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom: 10,
+    },
+    
+    foundBadge: {
+        backgroundColor: colours.darkGreenFill,
+        borderRadius: 20,
+        paddingHorizontal: 12,
+        paddingVertical: 2,
+    },
+
+    foundText: {
+        color: colours.white,
+        fontFamily: fonts.body,
+        fontSize: 10,
     },
 
     subheading: {
@@ -67,6 +94,13 @@ const styles = StyleSheet.create({
         fontSize: 11,
         color: colours.black,
         marginTop: 10
+    },
+
+    searchBar: {
+        backgroundColor: colours.searchBarBackground,
+        borderRadius: 20,
+        paddingHorizontal: 10,
+        paddingVertical: 5
     },
 
     bar1: {
