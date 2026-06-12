@@ -3,4 +3,5 @@ export const fonts = {
   headingRegular: 'Platypi_400Regular',
   body: 'DMSans_400Regular',
   bodyMedium: 'DMSans_500Medium',
+  bodyBold: 'DMSans_500Bold'
 }
