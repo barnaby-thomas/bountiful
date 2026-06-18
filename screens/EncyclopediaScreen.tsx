@@ -1,4 +1,5 @@
 import {View, Text, StyleSheet, FlatList, Image, TouchableOpacity, TextInput, ScrollView} from 'react-native'
+import { useState } from 'react';
 import {colours} from '../const/colours'
 import {fonts} from '../const/fonts'
 import {plants} from '../const/plants'
@@ -7,6 +8,7 @@ export default function EncyclopediaScreen() {
     const unlockedPlants = plants.filter(plant => plant.unlocked === true).length
     const totalPlants = plants.length
     const plantCategories = ['All', '🍄Fungi', '🫐Berries', '🌸Flowers', '🌿Leaves', '🏝️Seaside', '🌳Woodland'];
+    const [selectedCategory, setSelectedCategory] = useState('All');
 
     return (
         <View style={styles.container}>
@@ -32,8 +34,10 @@ export default function EncyclopediaScreen() {
                 style={styles.filterList}>
 
                 {plantCategories.map(category => (
-                    <TouchableOpacity key={category} style={styles.filterPill}>
-                    <Text style={styles.filterText}>{category}</Text>
+                    <TouchableOpacity key={category} 
+                    style={[styles.filterPill, selectedCategory === category && styles.filterPillSelected]} 
+                    onPress={() => setSelectedCategory(category)}>
+                        <Text style={styles.filterText}>{category}</Text>
                     </TouchableOpacity>
                 ))}
             </ScrollView>
@@ -147,6 +151,16 @@ const styles = StyleSheet.create({
         borderRadius:20,
         alignItems: 'center',
         justifyContent: 'center',
+    },
+
+    filterPillSelected: {
+        backgroundColor: colours.darkGreenFill,
+        margin: 3,
+        paddingHorizontal: 12,
+        paddingVertical: 3,
+        borderRadius:20,
+        alignItems: 'center',
+        justifyContent: 'center', 
     },
 
     filterText: {
