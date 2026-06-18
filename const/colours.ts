@@ -9,4 +9,5 @@ export const colours = {
     privatePin: '#80B9FF',
     publicPin: '#FFBB80',
     userPin: '#5A8F5A',
+    filterPillSelected: '#698f69',
 }

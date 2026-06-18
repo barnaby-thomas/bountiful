@@ -35,9 +35,16 @@ export default function EncyclopediaScreen() {
 
                 {plantCategories.map(category => (
                     <TouchableOpacity key={category} 
-                    style={[styles.filterPill, selectedCategory === category && styles.filterPillSelected]} 
+                    style={[
+                        styles.filterPill, 
+                        selectedCategory === category && styles.filterPillSelected
+                    ]} 
                     onPress={() => setSelectedCategory(category)}>
-                        <Text style={styles.filterText}>{category}</Text>
+                        <Text style= {[
+                            styles.filterText,
+                            selectedCategory === category && styles.filterTextSelected
+                        ]}>
+                            {category}</Text>
                     </TouchableOpacity>
                 ))}
             </ScrollView>
@@ -154,7 +161,8 @@ const styles = StyleSheet.create({
     },
 
     filterPillSelected: {
-        backgroundColor: colours.darkGreenFill,
+        color: colours.white,
+        backgroundColor: colours.filterPillSelected,
         margin: 3,
         paddingHorizontal: 12,
         paddingVertical: 3,
@@ -165,6 +173,12 @@ const styles = StyleSheet.create({
 
     filterText: {
         color: colours.greenText,
+        fontSize: 12,
+        fontFamily: fonts.body
+    },
+
+    filterTextSelected: {
+        color: colours.white,
         fontSize: 12,
         fontFamily: fonts.body
     },
