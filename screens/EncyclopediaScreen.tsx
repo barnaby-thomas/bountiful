@@ -7,8 +7,14 @@ import {plants} from '../const/plants'
 export default function EncyclopediaScreen() {
     const unlockedPlants = plants.filter(plant => plant.unlocked === true).length
     const totalPlants = plants.length
-    const plantCategories = ['All', '🍄Fungi', '🫐Berries', '🌸Flowers', '🌿Leaves', '🏝️Seaside', '🌳Woodland'];
+    const plantCategories = ['All', 'Fungi', 'Berries', 'Flowers', 'Leaves', 'Seaside', 'Woodland'];
     const [selectedCategory, setSelectedCategory] = useState('All');
+    let filteredPlants;
+    if (selectedCategory === 'All') {
+      filteredPlants = plants;
+    } else {
+      filteredPlants = plants.filter(plant => plant.category === selectedCategory);
+    }
 
     return (
         <View style={styles.container}>
@@ -49,7 +55,7 @@ export default function EncyclopediaScreen() {
                 ))}
             </ScrollView>
             <FlatList
-                data={plants}
+                data={filteredPlants}
                 numColumns={2}
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) => <PlantCard plant={item} />}
@@ -163,7 +169,7 @@ const styles = StyleSheet.create({
 
     filterPillSelected: {
         color: colours.white,
-        backgroundColor: colours.filterPillSelected,
+        backgroundColor: colours.darkGreenFill,
         margin: 3,
         paddingHorizontal: 12,
         paddingVertical: 3,
@@ -174,13 +180,13 @@ const styles = StyleSheet.create({
 
     filterText: {
         color: colours.greenText,
-        fontSize: 12,
+        fontSize: 15,
         fontFamily: fonts.body
     },
 
     filterTextSelected: {
         color: colours.white,
-        fontSize: 12,
+        fontSize: 15,
         fontFamily: fonts.body
     },
     
