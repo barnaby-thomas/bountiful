@@ -146,7 +146,8 @@ const styles = StyleSheet.create({
     filterList: {
         marginTop: 8,
         marginBottom: 8,
-        marginHorizontal: 4,
+        marginHorizontal: -15,
+        paddingHorizontal: 15,
         flexGrow: 0,
     },
 
