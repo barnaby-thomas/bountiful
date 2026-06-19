@@ -38,7 +38,7 @@ export const plants = [
     id: '6',
     name: 'Jelly Ear',
     category: 'Fungi',
-    image: '',
+    image: 'picture',
     unlocked: false,
   },
 ];

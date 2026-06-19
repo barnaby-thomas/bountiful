@@ -8,6 +8,8 @@ export default function EncyclopediaScreen() {
     const unlockedPlants = plants.filter(plant => plant.unlocked === true).length
     const totalPlants = plants.length
     const plantCategories = ['All', 'Fungi', 'Berries', 'Flowers', 'Leaves', 'Seaside', 'Woodland'];
+    
+    //filter pill logic
     const [selectedCategory, setSelectedCategory] = useState('All');
     let filteredPlants;
     if (selectedCategory === 'All') {
@@ -15,6 +17,12 @@ export default function EncyclopediaScreen() {
     } else {
       filteredPlants = plants.filter(plant => plant.category === selectedCategory);
     }
+    
+    //search bar logic - filtering based on character entry
+    const [searchText, setSearchText] = useState('');
+    const searchedPlants = searchText === '' 
+        ? filteredPlants 
+        : filteredPlants.filter(plant => plant.name.toLowerCase().includes(searchText.toLowerCase()));
 
     return (
         <View style={styles.container}>
@@ -26,7 +34,9 @@ export default function EncyclopediaScreen() {
                     </View>
                 </View>
                 <View style={styles.searchBar}>
-                    <TextInput placeholder = "Search plants..."/>
+                    <TextInput 
+                        placeholder = "Search plants..."
+                        onChangeText = {(text) => setSearchText(text)}/>
                 </View>
                 <Text style={styles.subheading}>{unlockedPlants}/{totalPlants} found</Text>
                 <View style={styles.bar1}>
@@ -55,7 +65,7 @@ export default function EncyclopediaScreen() {
                 ))}
             </ScrollView>
             <FlatList
-                data={filteredPlants}
+                data={searchedPlants}
                 numColumns={2}
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) => <PlantCard plant={item} />}
@@ -180,14 +190,14 @@ const styles = StyleSheet.create({
 
     filterText: {
         color: colours.greenText,
-        fontSize: 15,
-        fontFamily: fonts.body
+        fontSize: 13,
+        fontFamily: fonts.bodyBold
     },
 
     filterTextSelected: {
         color: colours.white,
-        fontSize: 15,
-        fontFamily: fonts.body
+        fontSize: 13,
+        fontFamily: fonts.bodyBold
     },
     
     card: {
@@ -220,11 +230,11 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         paddingHorizontal: 12,
         alignSelf: 'flex-start',
-        paddingVertical: 3
+        paddingVertical: 3,
     },
     
     cardCategory: {
-        fontFamily: fonts.body,
+        fontFamily: fonts.bodyBold,
         fontSize: 9,
         color: colours.greenText,
         
@@ -233,7 +243,7 @@ const styles = StyleSheet.create({
     cardName: {
         fontFamily: fonts.bodyBold,
         fontWeight: 'bold',
-        fontSize: 11,
+        fontSize: 13,
         color: colours.black,
     },
 })
