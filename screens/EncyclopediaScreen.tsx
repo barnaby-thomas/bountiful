@@ -87,7 +87,7 @@ function PlantCard({ plant }: { plant: typeof plants[0] }) {
             <Text style={styles.cardCategory}>{plant.category}</Text>
         </View>
       </View>
-      <Text>This is a plant</Text>
+      <Text style={styles.cardDescription}>Date Logged/Location</Text>
     </TouchableOpacity>
   );
 }
@@ -202,6 +202,7 @@ const styles = StyleSheet.create({
     
     card: {
         flex: 1,
+        maxWidth: '50%',
         margin: 6,
         borderRadius: 15,
         backgroundColor: colours.white,
@@ -222,7 +223,16 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        padding: 8,
+        paddingTop: 8,
+        paddingHorizontal: 8,
+        paddingBottom: 2,
+    },
+
+    cardDescription: {
+        paddingLeft: 8,
+        paddingBottom: 8,
+        fontFamily: fonts.body,
+        fontSize: 10,
     },
 
     cardCategoryPill: {
