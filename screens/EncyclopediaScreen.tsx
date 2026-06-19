@@ -7,7 +7,7 @@ import {plants} from '../const/plants'
 export default function EncyclopediaScreen() {
     const unlockedPlants = plants.filter(plant => plant.unlocked === true).length
     const totalPlants = plants.length
-    const plantCategories = ['All', 'Fungi', 'Berries', 'Flowers', 'Leaves', 'Seaside', 'Woodland'];
+    const plantCategories = ['All', 'Fungi', 'Fruit', 'Flowers', 'Leaves', 'Roots', 'Nuts'];
     
     //filter pill logic
     const [selectedCategory, setSelectedCategory] = useState('All');
@@ -26,52 +26,49 @@ export default function EncyclopediaScreen() {
 
     return (
         <View style={styles.container}>
-            <View style={styles.headerContainer}>
-                <View style={styles.headingRow}>
-                    <Text style={styles.heading}>My Plants 🌸</Text>
-                    <View style={styles.foundBadge}>
-                        <Text style={styles.foundText}>{unlockedPlants}/{totalPlants} found</Text>
-                    </View>
-                </View>
-                <View style={styles.searchBar}>
-                    <TextInput 
-                        placeholder = "Search plants..."
-                        onChangeText = {(text) => setSearchText(text)}/>
-                </View>
-                <Text style={styles.subheading}>{unlockedPlants}/{totalPlants} found</Text>
-                <View style={styles.bar1}>
-                    <View style={[styles.bar2, { width: `${(unlockedPlants / totalPlants) * 100}%` }]}>
-                    </View>
-                </View>
-            </View>
-            <ScrollView 
-                horizontal={true} 
-                showsHorizontalScrollIndicator={false}
-                style={styles.filterList}>
-
-                {plantCategories.map(category => (
-                    <TouchableOpacity key={category} 
-                    style={[
-                        styles.filterPill, 
-                        selectedCategory === category && styles.filterPillSelected
-                    ]} 
-                    onPress={() => setSelectedCategory(category)}>
-                        <Text style= {[
-                            styles.filterText,
-                            selectedCategory === category && styles.filterTextSelected
-                        ]}>
-                            {category}</Text>
-                    </TouchableOpacity>
-                ))}
-            </ScrollView>
             <FlatList
                 data={searchedPlants}
                 numColumns={2}
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) => <PlantCard plant={item} />}
+                columnWrapperStyle={{ justifyContent: 'flex-start' }}
+                ListHeaderComponent={
+                    <View>
+                        <View style={styles.headerContainer}>
+                            <View style={styles.headingRow}>
+                                <Text style={styles.heading}>My Plants 🌸</Text>
+                                <View style={styles.foundBadge}>
+                                    <Text style={styles.foundText}>{unlockedPlants}/{totalPlants} found</Text>
+                                </View>
+                            </View>
+                            <View style={styles.searchBar}>
+                                <TextInput 
+                                    placeholder="Search plants..."
+                                    onChangeText={(text) => setSearchText(text)}
+                                />
+                            </View>
+                        </View>
+                        <ScrollView 
+                            horizontal={true} 
+                            showsHorizontalScrollIndicator={false}
+                            style={styles.filterList}>
+                            {plantCategories.map(category => (
+                                <TouchableOpacity 
+                                    key={category} 
+                                    style={[styles.filterPill, selectedCategory === category && styles.filterPillSelected]}
+                                    onPress={() => setSelectedCategory(category)}
+                                >
+                                    <Text style={[styles.filterText, selectedCategory === category && styles.filterTextSelected]}>
+                                        {category}
+                                    </Text>
+                                </TouchableOpacity>
+                            ))}
+                        </ScrollView>
+                    </View>
+                }
             />
         </View>
-    )
+)
 }
 
 function PlantCard({ plant }: { plant: typeof plants[0] }) {
@@ -97,18 +94,18 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: colours.background,
-        padding: 15
     },
 
     headerContainer: {
-        padding: 10
+        paddingHorizontal: 40,
+        paddingVertical: 15
     },
     
     heading: {
         fontFamily: fonts.heading,
         fontSize: 28,
         color: colours.greenText,
-        marginBottom: 5
+        marginBottom: 5,
     },
 
     headingRow: {
@@ -141,7 +138,7 @@ const styles = StyleSheet.create({
 
     searchBar: {
         backgroundColor: colours.searchBarBackground,
-        borderRadius: 20,
+        borderRadius: 10,
         paddingHorizontal: 10,
         paddingVertical: 5
     },
@@ -162,9 +159,8 @@ const styles = StyleSheet.create({
     filterList: {
         marginTop: 8,
         marginBottom: 8,
-        marginHorizontal: -15,
-        paddingHorizontal: 15,
         flexGrow: 0,
+        paddingHorizontal: 15
     },
 
     filterPill: {
@@ -203,7 +199,7 @@ const styles = StyleSheet.create({
     card: {
         flex: 1,
         maxWidth: '50%',
-        margin: 6,
+        margin: 8,
         borderRadius: 15,
         backgroundColor: colours.white,
         overflow: 'hidden',
