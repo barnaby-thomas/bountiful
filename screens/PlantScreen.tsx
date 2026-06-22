@@ -2,6 +2,7 @@ import { View, Text, StyleSheet } from 'react-native'
 import { SafeAreaView } from "react-native-safe-area-context";
 import {colours} from '../const/colours'
 import {fonts} from '../const/fonts'
+import CategoryPill from '../components/CategoryPill';
 
 export default function PlantScreen(){
     return(
