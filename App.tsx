@@ -6,7 +6,7 @@ import { fonts } from './const/fonts';
 import { colours } from './const/colours';
 import { useFonts } from 'expo-font';
 import { Platypi_400Regular, Platypi_700Bold } from '@expo-google-fonts/platypi';
-import { DMSans_400Regular, DMSans_500Medium, DMSans_700Bold } from '@expo-google-fonts/dm-sans';
+import { DMSans_400Regular, DMSans_500Medium, DMSans_700Bold, DMSans_400Regular_Italic } from '@expo-google-fonts/dm-sans';
 import EncyclopediaScreen from './screens/EncyclopediaScreen';
 import MapScreen from './screens/MapScreen';
 import ScanScreen from './screens/ScanScreen';
@@ -21,7 +21,8 @@ export default function App() {
   Platypi_700Bold,
   DMSans_400Regular,
   DMSans_500Medium,
-  DMSans_700Bold
+  DMSans_700Bold,
+  DMSans_400Regular_Italic
   });
 
   if (!fontsLoaded) return null;
