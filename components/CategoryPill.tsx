@@ -15,12 +15,12 @@ const styles = StyleSheet.create({
     backgroundColor: colours.searchBarBackground,
     borderRadius: 20,
     paddingHorizontal: 12,
-    paddingVertical: 4,
+    paddingVertical: 3,
     marginRight: 6,
   },
   pillText: {
-    fontFamily: fonts.body,
-    fontSize: 12,
+    fontFamily: fonts.bodyBold,
+    fontSize: 13,
     color: colours.greenText,
   },
 });

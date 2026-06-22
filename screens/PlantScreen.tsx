@@ -14,9 +14,26 @@ export default function PlantScreen(){
                 <Text style={styles.latinNameText}>Beta vulgaris maritima</Text>
                 <Text style={styles.plantName}>Sea Beet</Text>
                 <View style={styles.categoryRow}>
-                    <Text>Filter Pill Categories</Text>
+                    <CategoryPill label="Leaves" />
+                    <CategoryPill label="Coastal" />
+                    <CategoryPill label="Common" />
                 </View>
                 <View style={styles.divider}/>
+                <View style={styles.plantInfoCards}>
+
+                </View>
+                <View style={styles.about}>
+
+                </View>
+                <View style={styles.harvestingGuide}>
+
+                </View>
+                <View style={styles.safetyInfo}>
+
+                </View>
+                <View style={styles.cookingSuggestions}>
+
+                </View>
             </View>
         </SafeAreaView>
     )
@@ -60,7 +77,27 @@ const styles = StyleSheet.create ({
 
     categoryRow: {
         flexDirection: 'row',
-        justifyContent:'space-between',
+        justifyContent: 'flex-start',
         paddingVertical: 10,
+    },
+
+    plantInfoCards: {
+
+    },
+
+    about: {
+
+    },
+
+    harvestingGuide: {
+
+    },
+
+    safetyInfo: {
+
+    },
+
+    cookingSuggestions: {
+
     },
 })
