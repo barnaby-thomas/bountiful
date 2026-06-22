@@ -5,6 +5,7 @@ import {colours} from '../const/colours'
 import {fonts} from '../const/fonts'
 import {plants} from '../const/plants'
 import { BlurView } from 'expo-blur';
+import CategoryPill from '../components/CategoryPill';
 
 export default function EncyclopediaScreen() {
     const unlockedPlants = plants.filter(plant => plant.unlocked === true).length

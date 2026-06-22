@@ -17,6 +17,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 3,
     marginRight: 6,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   pillText: {
     fontFamily: fonts.bodyBold,

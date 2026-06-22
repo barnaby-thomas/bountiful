@@ -41,13 +41,17 @@ return(
             </View>
             <Text style={styles.sectionHeading}>About</Text>
             <View style={styles.about}>    
-                <Text style={styles.aboutBody}>Sea beet is a hardy perennial coastal plant and the wild ancestor of 
+                <Text style={styles.sectionBody}>Sea beet is a hardy perennial coastal plant and the wild ancestor of 
                     common cultivated root vegetables like beetroot, sugar beet, and Swiss chard. It is widely foraged 
                     for its thick, glossy, and succulent leaves, which taste and cook similarly to spinach.</Text>
             </View>
             <Text style={styles.sectionHeading}>Harvesting Guide</Text>
             <View style={styles.harvestingGuideBox}/>
-            <View style={styles.safetyInfo}/>
+            <View style={styles.safetyInfoBox}>
+                <Text style={styles.safetyInfoHeading}>⚠️ Stay safe</Text>
+                <Text style={styles.sectionBody}>Never take leaves near sewage outlets, dog-walking trails or industrial 
+                    pollution. Always wash leaves thoroughly before consuming </Text>
+            </View>
             <View style={styles.cookingSuggestions}/>
         </ScrollView>
     </SafeAreaView>
@@ -135,7 +139,7 @@ const styles = StyleSheet.create ({
         marginHorizontal: 25
     },
 
-    aboutBody: {
+    sectionBody: {
         fontFamily: fonts.body,
     },
 
@@ -149,8 +153,21 @@ const styles = StyleSheet.create ({
         
     },
 
-    safetyInfo: {
+    safetyInfoBox: {
+        backgroundColor: colours.safetyInfoBox,
+        marginHorizontal: 25,
+        marginVertical: 10,
+        borderLeftWidth: 10,
+        borderLeftColor: colours.publicPin,
+        paddingHorizontal: 15,
+        paddingVertical: 10,
+    },
 
+    
+    safetyInfoHeading: {
+        fontFamily: fonts.bodyBold,
+        fontSize: 18,
+        marginBottom: 10,
     },
 
     cookingSuggestions: {

@@ -11,4 +11,5 @@ export const colours = {
     userPin: '#5A8F5A',
     filterPillSelected: '#698f69',
     greyText: '#707070',
+    safetyInfoBox: '#FFEEC5'
 }
