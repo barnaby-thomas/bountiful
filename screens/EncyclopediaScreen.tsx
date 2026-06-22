@@ -3,6 +3,7 @@ import { useState } from 'react';
 import {colours} from '../const/colours'
 import {fonts} from '../const/fonts'
 import {plants} from '../const/plants'
+import { BlurView } from 'expo-blur';
 
 export default function EncyclopediaScreen() {
     const unlockedPlants = plants.filter(plant => plant.unlocked === true).length
@@ -31,10 +32,11 @@ export default function EncyclopediaScreen() {
                 numColumns={2}
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) => <PlantCard plant={item} />}
-                columnWrapperStyle={{ justifyContent: 'flex-start' }}
+                columnWrapperStyle={{paddingHorizontal: 8 }}
+                contentContainerStyle={{ paddingBottom: 20}}
                 ListHeaderComponent={
                     <View>
-                        <View style={styles.headerContainer}>
+                        <BlurView intensity={100} tint="light" style={styles.headerContainer}>
                             <View style={styles.headingRow}>
                                 <Text style={styles.heading}>My Plants 🌸</Text>
                                 <View style={styles.foundBadge}>
@@ -47,7 +49,7 @@ export default function EncyclopediaScreen() {
                                     onChangeText={(text) => setSearchText(text)}
                                 />
                             </View>
-                        </View>
+                        </BlurView>
                         <ScrollView 
                             horizontal={true} 
                             showsHorizontalScrollIndicator={false}
@@ -81,7 +83,7 @@ function PlantCard({ plant }: { plant: typeof plants[0] }) {
       <View style={styles.cardInfo}>
         <Text style={styles.cardName}>{plant.name}</Text>
         <View style={styles.cardCategoryPill}>
-            <Text style={styles.cardCategory}>{plant.category}</Text>
+          <Text style={styles.cardCategory}>{plant.category}</Text>
         </View>
       </View>
       <Text style={styles.cardDescription}>Date Logged/Location</Text>
@@ -97,15 +99,26 @@ const styles = StyleSheet.create({
     },
 
     headerContainer: {
-        paddingHorizontal: 40,
-        paddingVertical: 15
+        marginTop: 10,
+        marginBottom: 10,
+        marginHorizontal: 30,
+        paddingHorizontal: 15,
+        paddingVertical: 10,
+        borderRadius: 20,
+        //backgroundColor: colours.white,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.06,
+        shadowRadius: 12,
+        elevation: 3,
+        overflow: 'hidden',
+        
     },
     
     heading: {
         fontFamily: fonts.heading,
         fontSize: 28,
         color: colours.greenText,
-        marginBottom: 5,
     },
 
     headingRow: {
@@ -140,7 +153,8 @@ const styles = StyleSheet.create({
         backgroundColor: colours.searchBarBackground,
         borderRadius: 10,
         paddingHorizontal: 10,
-        paddingVertical: 5
+        paddingVertical: 5,
+        marginBottom: 5,
     },
 
     bar1: {
@@ -157,7 +171,7 @@ const styles = StyleSheet.create({
     },
 
     filterList: {
-        marginTop: 8,
+        marginTop: 0,
         marginBottom: 8,
         flexGrow: 0,
         paddingHorizontal: 15
@@ -197,17 +211,11 @@ const styles = StyleSheet.create({
     },
     
     card: {
-        flex: 1,
-        maxWidth: '50%',
-        margin: 8,
+        width: '47%',
+        margin: 7,
         borderRadius: 15,
         backgroundColor: colours.white,
         overflow: 'hidden',
-        shadowColor: '#000000',
-        shadowOffset: {width: 0, height: 2},
-        shadowOpacity: 0.2,
-        shadowRadius: 8,
-        elevation: 4,
     },
     
     cardImage: {

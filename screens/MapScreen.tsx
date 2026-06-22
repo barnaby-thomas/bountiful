@@ -60,28 +60,26 @@ const styles = StyleSheet.create ({
     },
 
     headerContainer: {
-        position: 'absolute',
-        top: 20,
-        left: 30,
-        right: 30,
-        borderRadius: 20,
-        padding: 15,
-        backgroundColor: 'rgba(255,255,255,0.6)',
+        marginTop: 10,
+        marginBottom: 10,
+        marginHorizontal: 30,
+        paddingHorizontal: 15,
+        paddingVertical: 10,
         overflow: 'hidden',
+        borderRadius: 20,
     },
     
     heading: {
         fontFamily: fonts.heading,
         fontSize: 28,
         color: colours.greenText,
-        marginBottom: 5
     },
     
     headingRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginBottom: 10,
+        marginBottom: 5,
     },
 
     spotCountText: {
