@@ -2,18 +2,53 @@ import {View, Text, StyleSheet, FlatList, Image, TouchableOpacity} from 'react-n
 import {colours} from '../const/colours'
 import {fonts} from '../const/fonts'
 import {plants} from '../const/plants'
+import MapView from 'react-native-maps';
+import * as Location from 'expo-location';
+import { useState, useEffect } from 'react';
+import { BlurView } from 'expo-blur';
 
-export default function MapScreen (){
+export default function MapScreen() {
+
+    const [location, setLocation] = useState<Location.LocationObject | null>(null);
+    const [permissionGranted, setPermissionGranted] = useState(false);
+
+    useEffect(() => {
+        async function getLocation() {
+            const { status } = await Location.requestForegroundPermissionsAsync();
+            if (status === 'granted') {
+                setPermissionGranted(true);
+                const currentLocation = await Location.getCurrentPositionAsync({});
+                setLocation(currentLocation);
+            }
+        }
+        getLocation();
+    }, []);
     return (
-            <View style={styles.container}>
-                <View style={styles.headerContainer}>
-                    <View style={styles.headingRow}>
-                        <Text style={styles.heading}>My Foraging Map</Text> 
-                        <Text style={styles.heading}>🌳</Text>
-                    </View>
-                    <Text style={styles.spotCountText}>5 spots logged</Text>     
-                </View>          
-            </View>
+        <View style={styles.container}>
+            {permissionGranted && location ? (
+                <MapView
+                    style={styles.map}
+                    showsUserLocation={true}
+                    initialRegion={{
+                        latitude: location.coords.latitude,
+                        longitude: location.coords.longitude,
+                        latitudeDelta: 0.01,
+                        longitudeDelta: 0.01,
+                    }}
+                />
+            ) : (
+                <View style={styles.mapPlaceholder}>
+                    <Text>Waiting for location permission...</Text>
+                </View>
+            )}
+            <BlurView intensity={60} tint="light" style={styles.headerContainer}>
+                <View style={styles.headingRow}>
+                    <Text style={styles.heading}>My Foraging Map</Text> 
+                    <Text style={styles.heading}>🌳</Text>
+                </View>
+                <Text style={styles.spotCountText}>5 spots logged</Text>     
+            </BlurView>
+        </View>
     )
 }
 
@@ -25,8 +60,14 @@ const styles = StyleSheet.create ({
     },
 
     headerContainer: {
-        paddingHorizontal: 40,
-        paddingVertical: 15
+        position: 'absolute',
+        top: 20,
+        left: 30,
+        right: 30,
+        borderRadius: 20,
+        padding: 15,
+        backgroundColor: 'rgba(255,255,255,0.6)',
+        overflow: 'hidden',
     },
     
     heading: {
@@ -46,5 +87,19 @@ const styles = StyleSheet.create ({
     spotCountText: {
         fontFamily: fonts.bodyBold,
         color: colours.black,
-    }
+    },
+
+    map: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    },
+
+    mapPlaceholder: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
 })
