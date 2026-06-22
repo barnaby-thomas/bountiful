@@ -27,8 +27,18 @@ export default function App() {
   
   return (
     <NavigationContainer>
-      <StatusBar style="auto" />
-      <Tab.Navigator>
+      <StatusBar style="dark" backgroundColor={colours.background} />
+      <Tab.Navigator
+          screenOptions={{
+            headerShown: false,
+            tabBarStyle: {
+              backgroundColor: colours.background,
+              borderTopWidth: 0,
+            },
+            tabBarActiveTintColor: colours.darkGreenFill,
+            tabBarInactiveTintColor: colours.greenText,
+          }}
+        >
         <Tab.Screen name="Map" component={MapScreen} />
         <Tab.Screen name="Scan" component={ScanScreen} />
         <Tab.Screen name="Plants" component={EncyclopediaScreen} />

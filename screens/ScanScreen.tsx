@@ -1,15 +1,16 @@
 import {View, Text, StyleSheet, FlatList, Image, TouchableOpacity} from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context';
 import {colours} from '../const/colours'
 import {fonts} from '../const/fonts'
 import {plants} from '../const/plants'
 
 export default function ScanScreen() {
     return (
-            <View style={styles.container}>
+            <SafeAreaView style={styles.container}>
                 <View style={styles.headerContainer}>
                     <Text style={styles.heading}>Scan</Text>  
                 </View>          
-            </View>
+            </SafeAreaView>
         )
 }
 

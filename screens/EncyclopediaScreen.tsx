@@ -1,4 +1,5 @@
 import {View, Text, StyleSheet, FlatList, Image, TouchableOpacity, TextInput, ScrollView} from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useState } from 'react';
 import {colours} from '../const/colours'
 import {fonts} from '../const/fonts'
@@ -26,7 +27,7 @@ export default function EncyclopediaScreen() {
         : filteredPlants.filter(plant => plant.name.toLowerCase().includes(searchText.toLowerCase()));
 
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container} edges={['top']}>
             <FlatList
                 data={searchedPlants}
                 numColumns={2}
@@ -69,7 +70,7 @@ export default function EncyclopediaScreen() {
                     </View>
                 }
             />
-        </View>
+        </SafeAreaView>
 )
 }
 

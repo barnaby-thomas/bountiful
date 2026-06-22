@@ -1,4 +1,5 @@
 import {View, Text, StyleSheet, FlatList, Image, TouchableOpacity} from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context';
 import {colours} from '../const/colours'
 import {fonts} from '../const/fonts'
 import {plants} from '../const/plants'
@@ -24,7 +25,7 @@ export default function MapScreen() {
         getLocation();
     }, []);
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             {permissionGranted && location ? (
                 <MapView
                     style={styles.map}
@@ -48,7 +49,7 @@ export default function MapScreen() {
                 </View>
                 <Text style={styles.spotCountText}>5 spots logged</Text>     
             </BlurView>
-        </View>
+        </SafeAreaView>
     )
 }
 
