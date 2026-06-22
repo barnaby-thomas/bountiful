@@ -10,5 +10,5 @@ export const colours = {
     publicPin: '#FFBB80',
     userPin: '#5A8F5A',
     filterPillSelected: '#698f69',
-    greyText: '#8e8e8e',
+    greyText: '#707070',
 }

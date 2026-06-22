@@ -1,15 +1,16 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import { SafeAreaView } from "react-native-safe-area-context";
 import {colours} from '../const/colours'
 import {fonts} from '../const/fonts'
 import CategoryPill from '../components/CategoryPill';
 
 export default function PlantScreen(){
-    return(
-        <SafeAreaView style={styles.container} edges={['top']}>
-            <View style={styles.imageHeader}>
-                <Text>Plant Image</Text>
-            </View>
+return(
+    <SafeAreaView style={styles.container} edges={['top']}>
+        <View style={styles.imageHeader}>
+            <Text>Plant Image</Text>
+        </View>
+        <ScrollView>
             <View style={styles.header}>
                 <Text style={styles.latinNameText}>Beta vulgaris maritima</Text>
                 <Text style={styles.plantName}>Sea Beet</Text>
@@ -17,31 +18,45 @@ export default function PlantScreen(){
                     <CategoryPill label="Leaves" />
                     <CategoryPill label="Coastal" />
                     <CategoryPill label="Common" />
+                </View>                
+            </View>
+            <View style={styles.divider}/>
+            <View style={styles.infoCardGrid}>
+                <View style={styles.infoCard}>
+                    <Text style={styles.infoCardLabel}>Seasonality 📅</Text>
+                    <Text style={styles.infoCardValue}>Spring & autumn</Text>
                 </View>
-                <View style={styles.divider}/>
-                <View style={styles.plantInfoCards}>
-
+                <View style={styles.infoCard}>
+                    <Text style={styles.infoCardLabel}>Current Maturity 🌿</Text>
+                    <Text style={styles.infoCardValue}>Optimal ready to harvest</Text>
                 </View>
-                <View style={styles.about}>
-
+                <View style={styles.infoCard}>
+                    <Text style={styles.infoCardLabel}>Soil Type 🌍</Text>
+                    <Text style={styles.infoCardValue}>Sandy, salty</Text>
                 </View>
-                <View style={styles.harvestingGuide}>
-
-                </View>
-                <View style={styles.safetyInfo}>
-
-                </View>
-                <View style={styles.cookingSuggestions}>
-
+                <View style={styles.infoCard}>
+                    <Text style={styles.infoCardLabel}>Flavour 👅</Text>
+                    <Text style={styles.infoCardValue}>Rich, earthy, salty</Text>
                 </View>
             </View>
-        </SafeAreaView>
-    )
+            <Text style={styles.sectionHeading}>About</Text>
+            <View style={styles.about}>    
+                <Text style={styles.aboutBody}>Sea beet is a hardy perennial coastal plant and the wild ancestor of 
+                    common cultivated root vegetables like beetroot, sugar beet, and Swiss chard. It is widely foraged 
+                    for its thick, glossy, and succulent leaves, which taste and cook similarly to spinach.</Text>
+            </View>
+            <Text style={styles.sectionHeading}>Harvesting Guide</Text>
+            <View style={styles.harvestingGuideBox}/>
+            <View style={styles.safetyInfo}/>
+            <View style={styles.cookingSuggestions}/>
+        </ScrollView>
+    </SafeAreaView>
+)
 }
 
 const styles = StyleSheet.create ({
     container: {
-        flex: 0,
+        flex: 1,
         backgroundColor: colours.background,
     },
 
@@ -60,8 +75,8 @@ const styles = StyleSheet.create ({
     },
 
     header: {
-        paddingHorizontal: 30,
-        paddingTop: 10,
+        marginHorizontal: 25,
+        marginTop: 10,
     },
 
     latinNameText: {
@@ -81,16 +96,57 @@ const styles = StyleSheet.create ({
         paddingVertical: 10,
     },
 
-    plantInfoCards: {
+    infoCardGrid: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        marginTop: 10,
+        marginHorizontal: 15
+    },
 
+    infoCard: {
+        width: '48%',
+        backgroundColor: colours.white,
+        borderRadius: 12,
+        padding: 12,
+        margin: '1%',
+    },
+
+    infoCardLabel: {
+        fontFamily: fonts.bodyBold,
+        fontSize: 14,
+        color: colours.black,
+        marginBottom: 4,
+    },
+
+    infoCardValue: {
+        fontFamily: fonts.body,
+        fontSize: 13,
+        color: colours.greyText,
     },
 
     about: {
-
+        marginHorizontal: 25,
     },
 
-    harvestingGuide: {
+    sectionHeading: {
+        fontFamily: fonts.headingRegular,
+        fontSize: 20,
+        paddingVertical: 8,
+        marginHorizontal: 25
+    },
 
+    aboutBody: {
+        fontFamily: fonts.body,
+    },
+
+    
+    
+    harvestingGuideBox: {
+        backgroundColor: colours.white,
+        borderRadius: 12,
+        padding: 12,
+        marginHorizontal: 25
+        
     },
 
     safetyInfo: {
