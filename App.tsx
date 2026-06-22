@@ -10,6 +10,7 @@ import { DMSans_400Regular, DMSans_500Medium, DMSans_700Bold } from '@expo-googl
 import EncyclopediaScreen from './screens/EncyclopediaScreen';
 import MapScreen from './screens/MapScreen';
 import ScanScreen from './screens/ScanScreen';
+import PlantScreen from './screens/PlantScreen'
 
 const Tab = createBottomTabNavigator();
 
@@ -42,6 +43,7 @@ export default function App() {
         <Tab.Screen name="Map" component={MapScreen} />
         <Tab.Screen name="Scan" component={ScanScreen} />
         <Tab.Screen name="Plants" component={EncyclopediaScreen} />
+        <Tab.Screen name="Sea Beet" component={PlantScreen} />
       </Tab.Navigator>
     </NavigationContainer>
   );
