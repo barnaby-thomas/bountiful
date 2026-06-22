@@ -6,13 +6,27 @@ import {plants} from '../const/plants'
 export default function ScanScreen() {
     return (
             <View style={styles.container}>
-                <Text style={styles.heading}>Scan</Text>            
+                <View style={styles.headerContainer}>
+                    <Text style={styles.heading}>Scan</Text>  
+                </View>          
             </View>
         )
 }
 
 const styles = StyleSheet.create ({
    
+        
+    container: {
+        flex: 1,
+        backgroundColor: colours.background,
+    },
+
+    headerContainer: {
+        paddingHorizontal: 40,
+        paddingVertical: 15
+    },
+    
+    
     heading: {
         fontFamily: fonts.heading,
         fontSize: 28,
@@ -21,9 +35,4 @@ const styles = StyleSheet.create ({
         marginBottom: 10
     },
     
-    container: {
-        flex: 1,
-        backgroundColor: colours.background,
-        padding: 15
-    },
 })
