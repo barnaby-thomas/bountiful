@@ -3,8 +3,11 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import {colours} from '../const/colours'
 import {fonts} from '../const/fonts'
 import CategoryPill from '../components/CategoryPill';
+import { plants } from '../const/plants';
 
-export default function PlantScreen(){
+export default function PlantScreen({ route }: any){
+    const { plantId } = route.params;
+    const plant = plants.find(p => p.id === plantId);
 return(
     <SafeAreaView style={styles.container} edges={['top']}>
         <View style={styles.imageHeader}>
@@ -13,7 +16,7 @@ return(
         <ScrollView>
             <View style={styles.header}>
                 <Text style={styles.latinNameText}>Beta vulgaris maritima</Text>
-                <Text style={styles.plantName}>Sea Beet</Text>
+                <Text style={styles.plantName}>{plant?.name}</Text>
                 <View style={styles.categoryRow}>
                     <CategoryPill label="Leaves" />
                     <CategoryPill label="Coastal" />
