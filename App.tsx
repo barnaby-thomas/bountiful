@@ -11,8 +11,20 @@ import EncyclopediaScreen from './screens/EncyclopediaScreen';
 import MapScreen from './screens/MapScreen';
 import ScanScreen from './screens/ScanScreen';
 import PlantScreen from './screens/PlantScreen'
+import { createStackNavigator } from '@react-navigation/stack';
 
 const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
+
+function TabNavigator() {
+  return (
+    <Tab.Navigator screenOptions={{ headerShown: false }}>
+      <Tab.Screen name="Map" component={MapScreen} />
+      <Tab.Screen name="Scan" component={ScanScreen} />
+      <Tab.Screen name="Plants" component={EncyclopediaScreen} />
+    </Tab.Navigator>
+  );
+}
 
 export default function App() {
 
@@ -27,25 +39,13 @@ export default function App() {
 
   if (!fontsLoaded) return null;
   
-  return (
+    return (
     <NavigationContainer>
-      <StatusBar style="dark" backgroundColor={colours.background} />
-      <Tab.Navigator
-          screenOptions={{
-            headerShown: false,
-            tabBarStyle: {
-              backgroundColor: colours.background,
-              borderTopWidth: 0,
-            },
-            tabBarActiveTintColor: colours.darkGreenFill,
-            tabBarInactiveTintColor: colours.greenText,
-          }}
-        >
-        <Tab.Screen name="Map" component={MapScreen} />
-        <Tab.Screen name="Scan" component={ScanScreen} />
-        <Tab.Screen name="Plants" component={EncyclopediaScreen} />
-        <Tab.Screen name="Sea Beet" component={PlantScreen} />
-      </Tab.Navigator>
+      <StatusBar style="dark" />
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="Main" component={TabNavigator} />
+        <Stack.Screen name="PlantScreen" component={PlantScreen} />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }

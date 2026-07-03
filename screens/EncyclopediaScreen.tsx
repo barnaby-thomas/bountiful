@@ -7,7 +7,7 @@ import {plants} from '../const/plants'
 import { BlurView } from 'expo-blur';
 import CategoryPill from '../components/CategoryPill';
 
-export default function EncyclopediaScreen() {
+export default function EncyclopediaScreen({ navigation }: any) {
     const unlockedPlants = plants.filter(plant => plant.unlocked === true).length
     const totalPlants = plants.length
     const plantCategories = ['All', 'Fungi', 'Fruit', 'Flowers', 'Leaves', 'Roots', 'Nuts'];
@@ -33,7 +33,7 @@ export default function EncyclopediaScreen() {
                 data={searchedPlants}
                 numColumns={2}
                 keyExtractor={(item) => item.id}
-                renderItem={({ item }) => <PlantCard plant={item} />}
+                renderItem={({ item }) => <PlantCard plant={item} navigation={navigation} />}
                 columnWrapperStyle={{paddingHorizontal: 8 }}
                 contentContainerStyle={{ paddingBottom: 20}}
                 ListHeaderComponent={
@@ -75,9 +75,10 @@ export default function EncyclopediaScreen() {
 )
 }
 
-function PlantCard({ plant }: { plant: typeof plants[0] }) {
+function PlantCard({ plant, navigation }: { plant: typeof plants[0], navigation: any }) {
   return (
-    <TouchableOpacity style={styles.card}>
+    <TouchableOpacity style={styles.card}
+    onPress={() => navigation.navigate('PlantScreen', { plantId: plant.id })}>
       <Image
         source={{ uri: plant.image }}
         style={styles.cardImage}

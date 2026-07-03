@@ -67,7 +67,7 @@ const styles = StyleSheet.create ({
     divider: {
         height: 1,
         marginVertical: 5,
-        marginHorizontal: 10,
+        marginHorizontal: 20,
         backgroundColor: colours.searchBarBackground,
     },
 
