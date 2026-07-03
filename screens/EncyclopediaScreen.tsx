@@ -1,13 +1,14 @@
 import {View, Text, StyleSheet, FlatList, Image, TouchableOpacity, TextInput, ScrollView} from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {colours} from '../const/colours'
 import {fonts} from '../const/fonts'
-import {plants} from '../const/plants'
 import { BlurView } from 'expo-blur';
 import CategoryPill from '../components/CategoryPill';
+import { plants } from '../const/plants';
 
 export default function EncyclopediaScreen({ navigation }: any) {
+
     const unlockedPlants = plants.filter(plant => plant.unlocked === true).length
     const totalPlants = plants.length
     const plantCategories = ['All', 'Fungi', 'Fruit', 'Flowers', 'Leaves', 'Roots', 'Nuts'];
@@ -75,7 +76,7 @@ export default function EncyclopediaScreen({ navigation }: any) {
 )
 }
 
-function PlantCard({ plant, navigation }: { plant: typeof plants[0], navigation: any }) {
+function PlantCard({ plant, navigation }: { plant: any, navigation: any }) {
   return (
     <TouchableOpacity style={styles.card}
     onPress={() => navigation.navigate('PlantScreen', { plantId: plant.id })}>
