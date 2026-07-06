@@ -1,8 +1,7 @@
-import {View, Text, StyleSheet, FlatList, Image, TouchableOpacity} from 'react-native'
+import {View, Text, StyleSheet} from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {colours} from '../const/colours'
 import {fonts} from '../const/fonts'
-import {plants} from '../const/plants'
 import MapView from 'react-native-maps';
 import * as Location from 'expo-location';
 import { useState, useEffect } from 'react';

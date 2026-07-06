@@ -1,13 +1,23 @@
 import {View, Text, StyleSheet, FlatList, Image, TouchableOpacity, TextInput, ScrollView} from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useState, useEffect } from 'react';
+import { fetchPlants } from '../const/api';
 import {colours} from '../const/colours'
 import {fonts} from '../const/fonts'
 import { BlurView } from 'expo-blur';
 import CategoryPill from '../components/CategoryPill';
-import { plants } from '../const/plants';
 
 export default function EncyclopediaScreen({ navigation }: any) {
+
+    const [plants, setPlantsData] = useState<any[]>([]);
+
+    useEffect(() => {
+        async function loadPlants() {
+            const data = await fetchPlants();
+            setPlantsData(data);
+        }
+        loadPlants();
+    }, []);
 
     const unlockedPlants = plants.filter(plant => plant.unlocked === true).length
     const totalPlants = plants.length
@@ -90,6 +100,7 @@ function PlantCard({ plant, navigation }: { plant: any, navigation: any }) {
           <Text style={styles.cardCategory}>{plant.category}</Text>
         </View>
       </View>
+      {/* Will replace with real date/location from database */}
       <Text style={styles.cardDescription}>Date Logged/Location</Text>
     </TouchableOpacity>
   );

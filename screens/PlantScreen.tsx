@@ -3,12 +3,22 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import {colours} from '../const/colours'
 import {fonts} from '../const/fonts'
 import CategoryPill from '../components/CategoryPill';
-import { plants } from '../const/plants';
+import { fetchPlant } from '../const/api';
+import { useState, useEffect } from 'react';
 
 export default function PlantScreen({ route }: any){
     const { plantId } = route.params;
-    const plant = plants.find(p => p.id === plantId);
-return(
+    const [plant, setPlant] = useState<any>(null);
+
+    useEffect(() => {
+        async function loadPlant() {
+            const data = await fetchPlant(String(plantId));
+            setPlant(data);
+        }
+        loadPlant();
+    }, [plantId]);
+
+    return(
     <SafeAreaView style={styles.container} edges={['top']}>
         <View style={styles.imageHeader}>
             <Text>Plant Image</Text>
