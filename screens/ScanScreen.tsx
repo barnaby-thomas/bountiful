@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { colours } from '../const/colours';
 import { fonts } from '../const/fonts';
 import { useRef, useState } from 'react';
+import { identifyPlant } from '../const/api';
 
 export default function ScanScreen() {
     const [permission, requestPermission] = useCameraPermissions();
@@ -19,25 +20,14 @@ export default function ScanScreen() {
             
             if (photo?.base64) {
                 try {
-                    const response = await fetch('https://api.plant.id/v3/identification', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Api-Key': 'vqFIOzSdv2kZzF9vbRrfaNbczV1zw5EUqRMQMlgivh1Hme3px0',
-                        },
-                        body: JSON.stringify({
-                            images: [photo.base64],
-                            classification_level: 'species',
-                        }),
-                    });
-                    const result = await response.json();
+                    const result = await identifyPlant(photo.base64);
                     const topResult = result.result.classification.suggestions[0];
                     setIdentified(`${topResult.name} (${Math.round(topResult.probability * 100)}% confident)`);
-                } 
-                catch (error) {
+                } catch (error) {
                     console.error('API error:', error);
                 }
             }
+
         }
     }
 
