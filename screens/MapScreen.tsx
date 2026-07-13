@@ -1,4 +1,4 @@
-import {View, Text, StyleSheet} from 'react-native'
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {colours} from '../const/colours'
 import {fonts} from '../const/fonts'
@@ -11,6 +11,7 @@ export default function MapScreen() {
 
     const [location, setLocation] = useState<Location.LocationObject | null>(null);
     const [permissionGranted, setPermissionGranted] = useState(false);
+    const [mapMode, setMapMode] = useState<'my' | 'community'>('my');
 
     useEffect(() => {
         async function getLocation() {
@@ -48,6 +49,34 @@ export default function MapScreen() {
                 </View>
                 <Text style={styles.spotCountText}>5 spots logged</Text>     
             </BlurView>
+            <View style={styles.mapKeyContainer}>
+                <View style={styles.mapKeyRow}>
+                    <View style={[styles.mapKeyDot, { backgroundColor: colours.publicPin }]} />
+                    <Text style={styles.mapKeyText}>Public</Text>
+                </View>
+                <View style={styles.mapKeyRow}>
+                    <View style={[styles.mapKeyDot, { backgroundColor: colours.privatePin }]} />
+                    <Text style={styles.mapKeyText}>Private</Text>
+                </View>
+            </View>
+            <View style={styles.mapToggle}>
+                <TouchableOpacity 
+                    style={[styles.toggleOption, mapMode === 'my' && styles.toggleOptionSelected]}
+                    onPress={() => setMapMode('my')}
+                >
+                    <Text style={[styles.toggleText, mapMode === 'my' && styles.toggleTextSelected]}>
+                        My map
+                    </Text>
+                </TouchableOpacity>
+                <TouchableOpacity 
+                    style={[styles.toggleOption, mapMode === 'community' && styles.toggleOptionSelected]}
+                    onPress={() => setMapMode('community')}
+                >
+                    <Text style={[styles.toggleText, mapMode === 'community' && styles.toggleTextSelected]}>
+                        Community map
+                    </Text>
+                </TouchableOpacity>
+            </View>
         </SafeAreaView>
     )
 }
@@ -99,5 +128,67 @@ const styles = StyleSheet.create ({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+    },
+
+    mapKeyContainer: {
+        position: 'absolute',
+        bottom: 10,
+        left: 10,
+        backgroundColor: colours.white,
+        borderRadius: 15,
+        paddingHorizontal: 7,
+        paddingVertical: 3,
+        
+    },
+    
+    mapKeyRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginVertical: 3,
+    },
+
+    mapKeyDot: {
+        width: 12,
+        height: 12,
+        borderRadius: 6,
+        marginRight: 8,
+    },
+
+    mapKeyText: {
+        fontFamily: fonts.body,
+        fontSize: 13,
+        color: colours.black,
+    },
+
+    mapToggle: {
+        position: 'absolute',
+        bottom: 100,
+        alignSelf: 'center',
+        flexDirection: 'row',
+        backgroundColor: 'rgba(255,255,255,0.3)',
+        borderRadius: 30,
+        padding: 4,
+        width: 216,
+    },
+
+    toggleOption: {
+        width: 100,
+        paddingVertical: 10,
+        alignItems: 'center',
+        zIndex: 1,
+    },
+
+    toggleOptionSelected: {
+        backgroundColor: colours.searchBarBackground,
+    },
+
+    toggleText: {
+        fontFamily: fonts.body,
+        fontSize: 14,
+        color: colours.darkGreenFill,
+    },
+
+    toggleTextSelected: {
+        color: colours.white,
     },
 })

@@ -91,7 +91,7 @@ function PlantCard({ plant, navigation }: { plant: any, navigation: any }) {
     <TouchableOpacity style={styles.card}
     onPress={() => navigation.navigate('PlantScreen', { plantId: plant.id })}>
       <Image
-        source={{ uri: plant.image }}
+        source={{ uri: plant.image_url }}
         style={styles.cardImage}
       />
       <View style={styles.cardInfo}>

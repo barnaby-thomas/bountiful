@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, ScrollView } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from 'react-native'
 import { SafeAreaView } from "react-native-safe-area-context";
 import {colours} from '../const/colours'
 import {fonts} from '../const/fonts'
@@ -6,7 +6,7 @@ import CategoryPill from '../components/CategoryPill';
 import { fetchPlant } from '../const/api';
 import { useState, useEffect } from 'react';
 
-export default function PlantScreen({ route }: any){
+export default function PlantScreen({ route, navigation }: any){
     const { plantId } = route.params;
     const [plant, setPlant] = useState<any>(null);
 
@@ -19,25 +19,35 @@ export default function PlantScreen({ route }: any){
     }, [plantId]);
 
     return(
-    <SafeAreaView style={styles.container} edges={['top']}>
-        <View style={styles.imageHeader}>
-            <Text>Plant Image</Text>
-        </View>
+    <SafeAreaView style={styles.container} edges={[]}>
+    
         <ScrollView>
+            
+            <View style={styles.imageContainer}>
+                <Image 
+                    source={{ uri: plant?.image_url }}
+                    style={styles.imageHeader}
+                />
+                <TouchableOpacity 
+                    style={styles.backButton}
+                    onPress={() => navigation.goBack()}
+                >
+                    <Text>←</Text>
+                </TouchableOpacity>
+            </View>
             <View style={styles.header}>
-                <Text style={styles.latinNameText}>Beta vulgaris maritima</Text>
+                <Text style={styles.latinNameText}>{plant?.latin_name}</Text>
                 <Text style={styles.plantName}>{plant?.name}</Text>
                 <View style={styles.categoryRow}>
-                    <CategoryPill label="Leaves" />
-                    <CategoryPill label="Coastal" />
-                    <CategoryPill label="Common" />
+                    <CategoryPill label={plant?.category} />
+            
                 </View>                
             </View>
             <View style={styles.divider}/>
             <View style={styles.infoCardGrid}>
                 <View style={styles.infoCard}>
                     <Text style={styles.infoCardLabel}>Seasonality 📅</Text>
-                    <Text style={styles.infoCardValue}>Spring & autumn</Text>
+                    <Text style={styles.infoCardValue}>Month {plant?.season_start} — Month {plant?.season_end}</Text>
                 </View>
                 <View style={styles.infoCard}>
                     <Text style={styles.infoCardLabel}>Current Maturity 🌿</Text>
@@ -45,25 +55,44 @@ export default function PlantScreen({ route }: any){
                 </View>
                 <View style={styles.infoCard}>
                     <Text style={styles.infoCardLabel}>Soil Type 🌍</Text>
-                    <Text style={styles.infoCardValue}>Sandy, salty</Text>
+                    <Text style={styles.infoCardValue}>{plant?.soil_type}</Text>
                 </View>
                 <View style={styles.infoCard}>
                     <Text style={styles.infoCardLabel}>Flavour 👅</Text>
-                    <Text style={styles.infoCardValue}>Rich, earthy, salty</Text>
+                    <Text style={styles.infoCardValue}>{plant?.flavour}</Text>
                 </View>
             </View>
             <Text style={styles.sectionHeading}>About</Text>
             <View style={styles.about}>    
-                <Text style={styles.sectionBody}>Sea beet is a hardy perennial coastal plant and the wild ancestor of 
-                    common cultivated root vegetables like beetroot, sugar beet, and Swiss chard. It is widely foraged 
-                    for its thick, glossy, and succulent leaves, which taste and cook similarly to spinach.</Text>
+                <Text style={styles.sectionBody}>{plant?.about}</Text>
             </View>
             <Text style={styles.sectionHeading}>Harvesting Guide</Text>
-            <View style={styles.harvestingGuideBox}/>
+            <View style={styles.harvestingGuideBox}>
+                <View style={styles.harvestingItem}>
+                    <Text style={styles.harvestingIcon}>✂️</Text>
+                    <View style={styles.harvestingTextContainer}>
+                        <Text style={styles.harvestingTitle}>How much to take</Text>
+                        <Text style={styles.sectionBody}>{plant?.harvesting_how_much}</Text>
+                    </View>
+                </View>
+                <View style={styles.harvestingItem}>
+                    <Text style={styles.harvestingIcon}>🌱</Text>
+                    <View style={styles.harvestingTextContainer}>
+                        <Text style={styles.harvestingTitle}>What to pick</Text>
+                        <Text style={styles.sectionBody}>{plant?.harvesting_what_to_pick}</Text>
+                    </View>
+                </View>
+                <View style={styles.harvestingItem}>
+                    <Text style={styles.harvestingIcon}>📍</Text>
+                    <View style={styles.harvestingTextContainer}>
+                        <Text style={styles.harvestingTitle}>Location note</Text>
+                        <Text style={styles.sectionBody}>{plant?.harvesting_location_note}</Text>
+                    </View>
+                </View>
+            </View>
             <View style={styles.safetyInfoBox}>
                 <Text style={styles.safetyInfoHeading}>⚠️ Stay safe</Text>
-                <Text style={styles.sectionBody}>Never take leaves near sewage outlets, dog-walking trails or industrial 
-                    pollution. Always wash leaves thoroughly before consuming </Text>
+                <Text style={styles.sectionBody}>{plant?.safety_info}</Text>
             </View>
             <View style={styles.cookingSuggestions}/>
         </ScrollView>
@@ -84,11 +113,25 @@ const styles = StyleSheet.create ({
         backgroundColor: colours.searchBarBackground,
     },
 
+    imageContainer: {
+    position: 'relative',
+    },
+    
     imageHeader: {
-        height: 200,
+        height: 250,
         backgroundColor: colours.searchBarBackground,
         alignItems: 'center',
         justifyContent: 'center',
+    },
+
+    backButton: {
+        position: 'absolute',
+        top: 55,
+        left: 20,
+        backgroundColor: 'rgba(255,255,255,0.7)',
+        borderRadius: 30,
+        padding: 8,
+        zIndex: 10,
     },
 
     header: {
@@ -143,6 +186,7 @@ const styles = StyleSheet.create ({
 
     about: {
         marginHorizontal: 25,
+        marginBottom: 5,
     },
 
     sectionHeading: {
@@ -162,7 +206,8 @@ const styles = StyleSheet.create ({
         backgroundColor: colours.white,
         borderRadius: 12,
         padding: 12,
-        marginHorizontal: 25
+        marginHorizontal: 25,
+        marginBottom: 10,
         
     },
 
@@ -185,5 +230,27 @@ const styles = StyleSheet.create ({
 
     cookingSuggestions: {
 
+    },
+
+    harvestingItem: {
+    flexDirection: 'row',
+    marginVertical: 10,
+    gap: 12,
+    },
+
+    harvestingTextContainer: {
+        flex: 1,
+    },
+
+    harvestingIcon: {
+        fontSize: 20,
+        marginTop: 2,
+    },
+
+    harvestingTitle: {
+        fontFamily: fonts.bodyBold,
+        fontSize: 14,
+        color: colours.black,
+        marginBottom: 4,
     },
 })

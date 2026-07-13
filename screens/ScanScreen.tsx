@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { CameraView, useCameraPermissions, CameraType } from 'expo-camera';
+import { CameraView, useCameraPermissions } from 'expo-camera';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { colours } from '../const/colours';
 import { fonts } from '../const/fonts';
@@ -33,7 +33,8 @@ export default function ScanScreen() {
                     const result = await response.json();
                     const topResult = result.result.classification.suggestions[0];
                     setIdentified(`${topResult.name} (${Math.round(topResult.probability * 100)}% confident)`);
-                } catch (error) {
+                } 
+                catch (error) {
                     console.error('API error:', error);
                 }
             }

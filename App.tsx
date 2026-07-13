@@ -1,9 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StatusBar } from 'expo-status-bar';
-import { Text, View } from 'react-native';
-import { fonts } from './const/fonts';
-import { colours } from './const/colours';
 import { useFonts } from 'expo-font';
 import { Platypi_400Regular, Platypi_700Bold } from '@expo-google-fonts/platypi';
 import { DMSans_400Regular, DMSans_500Medium, DMSans_700Bold, DMSans_400Regular_Italic } from '@expo-google-fonts/dm-sans';
