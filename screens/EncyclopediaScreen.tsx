@@ -6,6 +6,7 @@ import {colours} from '../const/colours'
 import {fonts} from '../const/fonts'
 import { BlurView } from 'expo-blur';
 import CategoryPill from '../components/CategoryPill';
+import { getCategoryColour } from '../const/helpers';
 
 export default function EncyclopediaScreen({ navigation }: any) {
 
@@ -21,7 +22,7 @@ export default function EncyclopediaScreen({ navigation }: any) {
 
     const unlockedPlants = plants.filter(plant => plant.unlocked === true).length
     const totalPlants = plants.length
-    const plantCategories = ['All', 'Fungi', 'Fruit', 'Flowers', 'Leaves', 'Roots', 'Nuts'];
+    const plantCategories = ['All', 'Fungi', 'Fruit', 'Flowers', 'Leaves', 'Nuts'];
     
     //filter pill logic
     const [selectedCategory, setSelectedCategory] = useState('All');
@@ -87,6 +88,7 @@ export default function EncyclopediaScreen({ navigation }: any) {
 }
 
 function PlantCard({ plant, navigation }: { plant: any, navigation: any }) {
+    console.log('Category:', plant.category, 'Colour:', getCategoryColour(plant.category));
   return (
     <TouchableOpacity style={styles.card}
     onPress={() => navigation.navigate('PlantScreen', { plantId: plant.id })}>
@@ -96,12 +98,12 @@ function PlantCard({ plant, navigation }: { plant: any, navigation: any }) {
       />
       <View style={styles.cardInfo}>
         <Text style={styles.cardName}>{plant.name}</Text>
-        <View style={styles.cardCategoryPill}>
-          <Text style={styles.cardCategory}>{plant.category}</Text>
+        <View style={[styles.cardCategoryPill, { backgroundColor: getCategoryColour(plant.category) }]}>
+            <Text style={[styles.cardCategory]}>{plant.category}</Text>
         </View>
       </View>
       {/* Will replace with real date/location from database */}
-      <Text style={styles.cardDescription}>Date Logged/Location</Text>
+      {/*<Text style={styles.cardDescription}>Date Logged/Location</Text>*/}
     </TouchableOpacity>
   );
 }
@@ -229,22 +231,27 @@ const styles = StyleSheet.create({
         width: '47%',
         margin: 7,
         borderRadius: 15,
-        backgroundColor: colours.white,
         overflow: 'hidden',
+        height: 120,
     },
     
     cardImage: {
         width: '100%',
-        height: 75,
+        height: '100%',
+        position: 'absolute',
     },
     
     cardInfo: {
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        paddingTop: 8,
+        paddingVertical: 8,
         paddingHorizontal: 8,
-        paddingBottom: 2,
+        backgroundColor: 'rgba(255,255,255,0.90)',
     },
 
     cardDescription: {
@@ -255,7 +262,7 @@ const styles = StyleSheet.create({
     },
 
     cardCategoryPill: {
-        backgroundColor: colours.searchBarBackground,
+        
         borderRadius: 15,
         paddingHorizontal: 12,
         alignSelf: 'flex-start',
@@ -274,5 +281,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 13,
         color: colours.black,
+        flex: 1,
+        marginRight: 6,
     },
 })
