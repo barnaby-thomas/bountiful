@@ -37,7 +37,14 @@ export default function PlantScreen({ route, navigation }: any){
             </View>
             <View style={styles.header}>
                 <Text style={styles.latinNameText}>{plant?.latin_name}</Text>
-                <Text style={styles.plantName}>{plant?.name}</Text>
+                <View style={styles.plantNameRow}>
+                    <Text style={styles.plantName}>{plant?.name}</Text>
+                    {plant?.unlocked && (
+                        <View style={styles.unlockedBadge}>
+                            <Text style={styles.unlockedTick}>✓</Text>
+                        </View>
+                    )}
+                </View>
                 <View style={styles.categoryRow}>
                     <CategoryPill label={plant?.category} />
             
@@ -148,6 +155,27 @@ const styles = StyleSheet.create ({
     plantName: {
         fontFamily: fonts.headingRegular,
         fontSize: 30
+    },
+
+    plantNameRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 10,
+    },
+
+    unlockedBadge: {
+        backgroundColor: colours.privatePin,
+        borderRadius: 12,
+        width: 24,
+        height: 24,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+
+    unlockedTick: {
+        color: colours.white,
+        fontSize: 12,
+        fontWeight: 'bold',
     },
 
     categoryRow: {

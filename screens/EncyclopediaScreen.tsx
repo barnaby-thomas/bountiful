@@ -1,10 +1,11 @@
-import {View, Text, StyleSheet, FlatList, Image, TouchableOpacity, TextInput, ScrollView} from 'react-native'
+import {View, Text, StyleSheet, FlatList, TouchableOpacity, TextInput, ScrollView} from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useState, useEffect } from 'react';
 import { fetchPlants } from '../const/api';
 import {colours} from '../const/colours'
 import {fonts} from '../const/fonts'
 import { BlurView } from 'expo-blur';
+import { Image } from 'expo-image';
 import CategoryPill from '../components/CategoryPill';
 import { getCategoryColour } from '../const/helpers';
 
@@ -95,7 +96,14 @@ function PlantCard({ plant, navigation }: { plant: any, navigation: any }) {
       <Image
         source={{ uri: plant.image_url }}
         style={styles.cardImage}
+        contentFit='cover'
+        transition={200}
       />
+        {plant.unlocked && (
+            <View style={styles.unlockedBadge}>
+                <Text style={styles.unlockedTick}>✓</Text>
+            </View>
+        )}
       <View style={styles.cardInfo}>
         <Text style={styles.cardName}>{plant.name}</Text>
         <View style={[styles.cardCategoryPill]}>
@@ -240,7 +248,25 @@ const styles = StyleSheet.create({
         height: '100%',
         position: 'absolute',
     },
-    
+
+    unlockedBadge: {
+        position: 'absolute',
+        top: 8,
+        right: 8,
+        backgroundColor: colours.privatePin,
+        borderRadius: 12,
+        width: 24,
+        height: 24,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+
+    unlockedTick: {
+        color: colours.white,
+        fontSize: 12,
+        fontWeight: 'bold',
+    },
+        
     cardInfo: {
         position: 'absolute',
         bottom: 0,
