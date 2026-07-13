@@ -88,7 +88,7 @@ export default function EncyclopediaScreen({ navigation }: any) {
 }
 
 function PlantCard({ plant, navigation }: { plant: any, navigation: any }) {
-    console.log('Category:', plant.category, 'Colour:', getCategoryColour(plant.category));
+    
   return (
     <TouchableOpacity style={styles.card}
     onPress={() => navigation.navigate('PlantScreen', { plantId: plant.id })}>
@@ -98,7 +98,7 @@ function PlantCard({ plant, navigation }: { plant: any, navigation: any }) {
       />
       <View style={styles.cardInfo}>
         <Text style={styles.cardName}>{plant.name}</Text>
-        <View style={[styles.cardCategoryPill, { backgroundColor: getCategoryColour(plant.category) }]}>
+        <View style={[styles.cardCategoryPill]}>
             <Text style={[styles.cardCategory]}>{plant.category}</Text>
         </View>
       </View>
@@ -267,6 +267,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 12,
         alignSelf: 'flex-start',
         paddingVertical: 3,
+        backgroundColor: colours.searchBarBackground,
     },
     
     cardCategory: {
