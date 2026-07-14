@@ -32,7 +32,7 @@ export default function PlantScreen({ route, navigation }: any){
                     style={styles.backButton}
                     onPress={() => navigation.goBack()}
                 >
-                    <Text>←</Text>
+                    <Text style={styles.backArrow}>←</Text>
                 </TouchableOpacity>
             </View>
             <View style={styles.header}>
@@ -133,12 +133,20 @@ const styles = StyleSheet.create ({
 
     backButton: {
         position: 'absolute',
-        top: 55,
-        left: 20,
+        alignContent: 'center',
+        top: 50,
+        left: 15,
+        width: 30,
+        height: 30,
         backgroundColor: 'rgba(255,255,255,0.7)',
         borderRadius: 30,
         padding: 8,
         zIndex: 10,
+    },
+
+    backArrow: {
+        fontWeight: 'light',
+        fontSize: 15,
     },
 
     header: {

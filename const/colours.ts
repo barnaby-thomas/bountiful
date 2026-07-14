@@ -1,6 +1,7 @@
 export const colours = {
     background: '#E8F5E8',
     darkGreenFill: '#3D6B3D',
+    darkGreenText: '#365B36',
     searchBarBackground: '#C8DFC8',
     fadedBlackText: '#000000BF',
     black: '#000000',
@@ -11,5 +12,10 @@ export const colours = {
     userPin: '#5A8F5A',
     filterPillSelected: '#698f69',
     greyText: '#707070',
-    safetyInfoBox: '#FFEEC5'
+    safetyInfoBox: '#FFEEC5',
+    categoryFungi: '#8B4513',      
+    categoryFruit: '#E8A838',      
+    categoryFlowers: '#C17BB5',    
+    categoryLeaves: '#5A8F5A',     
+    categoryNuts: '#A0522D',  
 }
