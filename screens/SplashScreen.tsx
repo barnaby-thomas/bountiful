@@ -1,9 +1,9 @@
 import { SafeAreaView } from "react-native-safe-area-context";
-import { StyleSheet, TextInput, View, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { colours } from "../const/colours";
 import { fonts } from "../const/fonts";
 
-export default function SplashScreen() {
+export default function SplashScreen({navigation} : any) {
     return(
         <SafeAreaView style={styles.container}>
             <View style={styles.logoHeading}>
@@ -20,7 +20,10 @@ export default function SplashScreen() {
                     </Text>
                     <Text>🍄</Text>
                 </View>
-                <TouchableOpacity style={styles.exploreButton}>
+                <TouchableOpacity 
+                    style={styles.exploreButton}
+                    onPress={() => navigation.navigate('Login')}
+                >
                     <Text style={styles.exploreText}>Start Exploring</Text>
                 </TouchableOpacity>
             </View>
@@ -104,6 +107,7 @@ const styles = StyleSheet.create({
         height: 50,
         width: 300,
         borderRadius: 12,
+        marginBottom: 70,
     },
 
     exploreText: {

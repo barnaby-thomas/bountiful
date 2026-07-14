@@ -9,6 +9,7 @@ import MapScreen from './screens/MapScreen';
 import ScanScreen from './screens/ScanScreen';
 import PlantScreen from './screens/PlantScreen'
 import SplashScreen from './screens/SplashScreen';
+import LoginScreen from './screens/LoginScreen';
 import { createStackNavigator } from '@react-navigation/stack';
 
 const Tab = createBottomTabNavigator();
@@ -17,7 +18,6 @@ const Stack = createStackNavigator();
 function TabNavigator() {
   return (
     <Tab.Navigator screenOptions={{ headerShown: false }}>
-      <Tab.Screen name="Splash" component={SplashScreen} />
       <Tab.Screen name="Map" component={MapScreen} />
       <Tab.Screen name="Scan" component={ScanScreen} />
       <Tab.Screen name="Plants" component={EncyclopediaScreen} />
@@ -42,6 +42,8 @@ export default function App() {
     <NavigationContainer>
       <StatusBar style="dark" />
       <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="Splash" component={SplashScreen} />
+        <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Main" component={TabNavigator} />
         <Stack.Screen name="PlantScreen" component={PlantScreen} />
       </Stack.Navigator>
