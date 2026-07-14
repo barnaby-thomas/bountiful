@@ -20,6 +20,9 @@ export default function SplashScreen() {
                     </Text>
                     <Text>🍄</Text>
                 </View>
+                <TouchableOpacity style={styles.exploreButton}>
+                    <Text style={styles.exploreText}>Start Exploring</Text>
+                </TouchableOpacity>
             </View>
         </SafeAreaView>
     )
@@ -39,14 +42,14 @@ const styles = StyleSheet.create({
     },
     
     logoHeading: {
-        
+        flex: 1,
+        justifyContent: 'space-between'
     },
 
     logoCircle: {
         backgroundColor: colours.searchBarBackground,
         justifyContent: 'center',
         alignSelf: 'center',
-        top: 80,
         height: 200,
         width: 200,
         borderRadius: 100,
@@ -69,14 +72,13 @@ const styles = StyleSheet.create({
     infoBox: {
         
         alignItems: 'center',
-        top: 120,
         marginHorizontal: 10,
         paddingHorizontal: 20,
 
     },
 
     heading: {
-        fontFamily: fonts.headingRegular,
+        fontFamily: fonts.heading,
         fontSize: 24,
         color: colours.darkGreenText,
         margin: 5,
@@ -90,7 +92,23 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         marginTop: 20,
         marginBottom: 20,
-        marginHorizontal: 20,
+        marginHorizontal: 35,
         lineHeight: 22,
+    },
+
+    exploreButton: {
+        alignSelf: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: colours.darkGreenFill,
+        height: 50,
+        width: 300,
+        borderRadius: 12,
+    },
+
+    exploreText: {
+        fontFamily: fonts.bodyBold,
+        color: colours.white,
+        fontSize: 17
     },
 })
