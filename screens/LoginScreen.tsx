@@ -9,6 +9,7 @@ export default function LoginScreen({ navigation }: any) {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
 
     async function processLogin(){
         const result = await userLogin(email, password);
@@ -16,7 +17,7 @@ export default function LoginScreen({ navigation }: any) {
             await SecureStore.setItemAsync('token', result.token);
             navigation.navigate('Main');
         } else {
-            console.error('Login failed');
+            setError('Incorrect email or password')
         }
     }
 
@@ -39,6 +40,9 @@ export default function LoginScreen({ navigation }: any) {
                         autoCapitalize="none"
                     />
                 </View>
+                {error !== '' && (
+                    <Text style={styles.errorText}>{error}</Text>
+                )}
                 <TouchableOpacity style={styles.loginButton} onPress={processLogin}>
                     <Text style={styles.loginText}>Login</Text>
                 </TouchableOpacity>
@@ -81,6 +85,14 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         paddingVertical: 5,
         margin: 5
+    },
+
+    errorText: {
+        color: 'red',
+        fontFamily: fonts.body,
+        fontSize: 12,
+        textAlign: 'center',
+        margin: 5,
     },
 
     loginButton: {
