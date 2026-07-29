@@ -1,0 +1,1698 @@
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+</file_summary>
+
+<directory_structure>
+assets/
+  adaptive-icon.png
+  favicon.png
+  icon.png
+  splash-icon.png
+components/
+  CategoryPill.tsx
+const/
+  api.ts
+  colours.ts
+  fonts.ts
+  helpers.ts
+  plants.ts
+  routes.ts
+screens/
+  EncyclopediaScreen.tsx
+  LoginScreen.tsx
+  MapScreen.tsx
+  PlantScreen.tsx
+  RegisterScreen.tsx
+  ScanScreen.tsx
+  SplashScreen.tsx
+.gitignore
+app.json
+App.tsx
+index.ts
+package.json
+tsconfig.json
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path="const/helpers.ts">
+export function getCategoryColour(category: string): string {
+    const categoryColours: { [key: string]: string } = {
+        'Fungi': '#add3ad',
+        'Fruit': '#a3b6a3',
+        'Flowers': '#6fbb6f',
+        'Leaves': '#C8DFC8',
+        'Nuts': '#6fbb6f',
+    };
+    return categoryColours[category] || '#C8DFC8';
+}
+</file>
+
+<file path="screens/LoginScreen.tsx">
+import { SafeAreaView } from "react-native-safe-area-context";
+import { StyleSheet, View, Text, TouchableOpacity, TextInput } from "react-native";
+import { colours } from "../const/colours";
+import { fonts } from "../const/fonts";
+import { userLogin } from "../const/api";
+import { SecureStoreOptions } from "expo-secure-store";
+
+export default function LoginScreen() {
+    return(
+        <SafeAreaView style={styles.container}>
+            <View style={styles.credentialsBox}>
+                <View style={styles.emailBox}>
+                    <TextInput 
+                        placeholder="Email..."
+                    />
+                </View>
+                <View style={styles.passwordBox}>
+                    <TextInput 
+                        placeholder="Password..."
+                    />
+                </View>
+                <TouchableOpacity style={styles.loginButton}>
+                    <Text style={styles.loginText}>Login</Text>
+                </TouchableOpacity>
+                <Text style={styles.or}>Or</Text>
+                <TouchableOpacity style={styles.createAccButton}>
+                    <Text style={styles.createAccText}> Create an account</Text>
+                </TouchableOpacity>
+            </View>
+            
+        </SafeAreaView>
+    )
+}
+
+const styles = StyleSheet.create({
+    container: {
+            flex: 1,
+            backgroundColor: colours.background,
+            justifyContent: 'center'
+        },
+
+    credentialsBox: {
+        
+        width: 300,
+        height: 200,
+        alignSelf: 'center',
+        borderRadius: 20,
+    },
+
+    emailBox: {
+        backgroundColor: colours.searchBarBackground,
+        borderRadius: 10,
+        paddingHorizontal: 10,
+        paddingVertical: 5,
+        margin: 5
+    },
+
+    passwordBox: {
+        backgroundColor: colours.searchBarBackground,
+        borderRadius: 10,
+        paddingHorizontal: 10,
+        paddingVertical: 5,
+        margin: 5
+    },
+
+    loginButton: {
+        alignSelf: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: colours.darkGreenFill,
+        height: 30,
+        width: 100,
+        borderRadius: 12,
+        margin: 5,
+    },
+
+    loginText: {
+        fontFamily: fonts.bodyBold,
+        color: colours.white,
+        fontSize: 13
+    },
+
+    or: {
+        fontFamily: fonts.bodyMedium,
+        fontSize: 14,
+        alignSelf: 'center',
+        margin: 5,
+    },
+
+    createAccButton: {
+        alignSelf: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: colours.darkGreenFill,
+        height: 30,
+        width: 150,
+        borderRadius: 12,
+        margin: 5,
+    },
+
+    createAccText: {
+        fontFamily: fonts.bodyBold,
+        color: colours.white,
+        fontSize: 13
+    },
+})
+</file>
+
+<file path="screens/RegisterScreen.tsx">
+
+</file>
+
+<file path="index.ts">
+import { registerRootComponent } from 'expo';
+
+import App from './App';
+
+// registerRootComponent calls AppRegistry.registerComponent('main', () => App);
+// It also ensures that whether you load the app in Expo Go or in a native build,
+// the environment is set up appropriately
+registerRootComponent(App);
+</file>
+
+<file path="tsconfig.json">
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": true
+  }
+}
+</file>
+
+<file path="const/routes.ts">
+export const routes = {
+    plant: 'PlantScreen',
+    map: 'MapScreen',
+    scan: 'ScanScreen',
+    encyclopedia: 'EncyclopediaScreen',
+}
+</file>
+
+<file path=".gitignore">
+# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
+
+# dependencies
+node_modules/
+
+# Expo
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+
+# Native
+.kotlin/
+*.orig.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+
+# Metro
+.metro-health-check*
+
+# debug
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+
+# macOS
+.DS_Store
+*.pem
+
+# local env files
+.env*.local
+.env
+
+# typescript
+*.tsbuildinfo
+
+# generated native folders
+/ios
+/android
+</file>
+
+<file path="components/CategoryPill.tsx">
+import { View, Text, StyleSheet } from 'react-native';
+import { colours } from '../const/colours';
+import { fonts } from '../const/fonts';
+
+export default function CategoryPill({ label }: { label: string }) {
+  return (
+    <View style={styles.pill}>
+      <Text style={styles.pillText}>{label}</Text>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  pill: {
+    backgroundColor: colours.searchBarBackground,
+    borderRadius: 20,
+    paddingHorizontal: 12,
+    paddingVertical: 3,
+    marginRight: 6,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  pillText: {
+    fontFamily: fonts.bodyBold,
+    fontSize: 13,
+    color: colours.greenText,
+  },
+});
+</file>
+
+<file path="const/api.ts">
+const API_URL = 'http://localhost:3000';
+
+export const fetchPlants = async () => {
+    try {
+        const response = await fetch(`${API_URL}/plants`);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error fetching plants:', error);
+        return [];
+    }
+};
+
+export const fetchPlant = async (id: string) => {
+    try {
+        const response = await fetch(`${API_URL}/plants/${id}`);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error fetching plant:', error);
+        return null;
+    }
+};
+
+export const identifyPlant = async (base64Image: string) => {
+    try{
+        const response = await fetch(`${API_URL}/identify`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ image: base64Image }),
+        });
+        const plantID = await response.json();
+        return plantID;
+    } catch (error){
+        console.error('Plant identification faiure:', error);
+        return null;
+    }
+};
+
+export const userLogin = async ( email: string, password: string) => {
+    try{
+        const login = await fetch(`${API_URL}/login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                },
+            body: JSON.stringify({ email, password }),
+        });
+        const data = await login.json();
+        return data;
+    } catch (error){
+        console.error('Login failed:', error);
+        return null;
+    }
+};
+</file>
+
+<file path="screens/SplashScreen.tsx">
+import { SafeAreaView } from "react-native-safe-area-context";
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import { colours } from "../const/colours";
+import { fonts } from "../const/fonts";
+
+export default function SplashScreen({navigation} : any) {
+    return(
+        <SafeAreaView style={styles.container}>
+            <View style={styles.logoHeading}>
+                <Text style={styles.welcome}>WELCOME TO</Text>
+                <View style={styles.logoCircle}>
+                    <Text style={styles.bountifulText}>bountiful</Text>
+                    <Text style={styles.tagline}>gather your garden</Text>
+                </View>
+                <View style={styles.infoBox}>
+                    <Text style={styles.heading}>Discover what grows around you</Text>
+                    <Text style={styles.info}>
+                        Learn the skill of foraging through real-world exploration. 
+                        Build your personal encyclopedia and share your finds with a like-minded community.
+                    </Text>
+                    <Text>🍄</Text>
+                </View>
+                <TouchableOpacity 
+                    style={styles.exploreButton}
+                    onPress={() => navigation.navigate('Login')}
+                >
+                    <Text style={styles.exploreText}>Start Exploring</Text>
+                </TouchableOpacity>
+            </View>
+        </SafeAreaView>
+    )
+}
+
+const styles = StyleSheet.create({
+    container: {
+            flex: 1,
+            backgroundColor: colours.background,
+        },
+
+    welcome: {
+        alignSelf: 'center',
+        fontFamily: fonts.bodyMedium,
+        color: colours.greyText,
+        top: 40,
+    },
+    
+    logoHeading: {
+        flex: 1,
+        justifyContent: 'space-between'
+    },
+
+    logoCircle: {
+        backgroundColor: colours.searchBarBackground,
+        justifyContent: 'center',
+        alignSelf: 'center',
+        height: 200,
+        width: 200,
+        borderRadius: 100,
+    },
+
+    bountifulText: {
+        fontFamily: fonts.bodyBold,
+        fontSize: 28,
+        textAlign: 'center',
+        color: colours.darkGreenFill,
+    },
+
+    tagline: {
+        textAlign: 'center',
+        fontFamily: fonts.body,
+        fontSize: 11,
+        color: colours.greyText,
+    },
+
+    infoBox: {
+        
+        alignItems: 'center',
+        marginHorizontal: 10,
+        paddingHorizontal: 20,
+
+    },
+
+    heading: {
+        fontFamily: fonts.heading,
+        fontSize: 24,
+        color: colours.darkGreenText,
+        margin: 5,
+        textAlign: 'center'
+        
+    },
+
+    info: {
+        fontFamily: fonts.body,
+        color: colours.greenText,
+        textAlign: 'center',
+        marginTop: 20,
+        marginBottom: 20,
+        marginHorizontal: 35,
+        lineHeight: 22,
+    },
+
+    exploreButton: {
+        alignSelf: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: colours.darkGreenFill,
+        height: 50,
+        width: 300,
+        borderRadius: 12,
+        marginBottom: 70,
+    },
+
+    exploreText: {
+        fontFamily: fonts.bodyBold,
+        color: colours.white,
+        fontSize: 17
+    },
+})
+</file>
+
+<file path="app.json">
+{
+  "expo": {
+    "name": "Bountiful",
+    "slug": "Bountiful",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "edgeToEdgeEnabled": true,
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-font",
+      "expo-secure-store"
+    ]
+  }
+}
+</file>
+
+<file path="const/fonts.ts">
+export const fonts = {
+  heading: 'Platypi_700Bold',
+  headingRegular: 'Platypi_400Regular',
+  body: 'DMSans_400Regular',
+  bodyMedium: 'DMSans_500Medium',
+  bodyBold: 'DMSans_700Bold',
+  latinName: 'DMSans_400Regular_Italic'
+}
+</file>
+
+<file path="const/plants.ts">
+export const plants = [
+  {
+    id: '1',
+    name: 'Wild Strawberry',
+    category: 'Berries',
+    image: 'https://images.unsplash.com/photo-1586348943529-beaae6c28db9?w=400',
+    unlocked: true,
+  },
+  {
+    id: '2',
+    name: 'Sea Beet',
+    category: 'Leaves',
+    image: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?w=400',
+    unlocked: true,
+  },
+  {
+    id: '3',
+    name: 'Wild Garlic',
+    category: 'Leaves',
+    image: 'https://unsplash.com/photos/green-leaves-on-brown-tree-branches-VI_PCpBIWpo',
+    unlocked: true,
+  },
+  {
+    id: '4',
+    name: 'Elderflower',
+    category: 'Flowers',
+    image: 'image',
+    unlocked: false,
+  },
+  {
+    id: '5',
+    name: 'Cloudberry',
+    category: 'Berries',
+    image: 'https://images.unsplash.com/photo-1596591868231-05e808fd131d?w=400',
+    unlocked: true,
+  },
+  {
+    id: '6',
+    name: 'Spring Fieldcap',
+    category: 'Fungi',
+    image: 'https://images.unsplash.com/photo-1515694346937-94d85e41e6f0?w=400',
+    unlocked: false,
+  },
+  {
+    id: '7',
+    name: 'Jelly Ear',
+    category: 'Fungi',
+    image: 'image',
+    unlocked: false,
+  },
+  {
+    id: '8',
+    name: 'Borage',
+    category: 'Flowers',
+    image: 'image',
+    unlocked: true,
+  },
+  {
+    id: '9',
+    name: 'Nettle',
+    category: 'Leaves',
+    image: 'image',
+    unlocked: true,
+  },
+  {
+    id: '10',
+    name: 'Nasturtium',
+    category: 'Flowers',
+    image: 'image',
+    unlocked: false,
+  }
+];
+</file>
+
+<file path="const/colours.ts">
+export const colours = {
+    background: '#E8F5E8',
+    darkGreenFill: '#3D6B3D',
+    darkGreenText: '#365B36',
+    searchBarBackground: '#C8DFC8',
+    fadedBlackText: '#000000BF',
+    black: '#000000',
+    white: '#FFFFFF',
+    greenText: '#3D6B3D',
+    privatePin: '#80B9FF',
+    publicPin: '#FFBB80',
+    userPin: '#5A8F5A',
+    filterPillSelected: '#698f69',
+    greyText: '#707070',
+    safetyInfoBox: '#FFEEC5',
+    categoryFungi: '#8B4513',      
+    categoryFruit: '#E8A838',      
+    categoryFlowers: '#C17BB5',    
+    categoryLeaves: '#5A8F5A',     
+    categoryNuts: '#A0522D',  
+}
+</file>
+
+<file path="screens/MapScreen.tsx">
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context';
+import {colours} from '../const/colours'
+import {fonts} from '../const/fonts'
+import MapView from 'react-native-maps';
+import * as Location from 'expo-location';
+import { useState, useEffect } from 'react';
+import { BlurView } from 'expo-blur';
+
+export default function MapScreen() {
+
+    const [location, setLocation] = useState<Location.LocationObject | null>(null);
+    const [permissionGranted, setPermissionGranted] = useState(false);
+    const [mapMode, setMapMode] = useState<'my' | 'community'>('my');
+
+    useEffect(() => {
+        async function getLocation() {
+            const { status } = await Location.requestForegroundPermissionsAsync();
+            if (status === 'granted') {
+                setPermissionGranted(true);
+                const currentLocation = await Location.getCurrentPositionAsync({});
+                setLocation(currentLocation);
+            }
+        }
+        getLocation();
+    }, []);
+    return (
+        <SafeAreaView style={styles.container}>
+            {permissionGranted && location ? (
+                <MapView
+                    style={styles.map}
+                    showsUserLocation={true}
+                    initialRegion={{
+                        latitude: location.coords.latitude,
+                        longitude: location.coords.longitude,
+                        latitudeDelta: 0.01,
+                        longitudeDelta: 0.01,
+                    }}
+                />
+            ) : (
+                <View style={styles.mapPlaceholder}>
+                    <Text>Waiting for location permission...</Text>
+                </View>
+            )}
+            <BlurView intensity={60} tint="light" style={styles.headerContainer}>
+                <View style={styles.headingRow}>
+                    <Text style={styles.heading}>My Foraging Map</Text> 
+                    <Text style={styles.heading}>🌳</Text>
+                </View>
+                <Text style={styles.spotCountText}>5 spots logged</Text>     
+            </BlurView>
+            <View style={styles.mapKeyContainer}>
+                <View style={styles.mapKeyRow}>
+                    <View style={[styles.mapKeyDot, { backgroundColor: colours.publicPin }]} />
+                    <Text style={styles.mapKeyText}>Public</Text>
+                </View>
+                <View style={styles.mapKeyRow}>
+                    <View style={[styles.mapKeyDot, { backgroundColor: colours.privatePin }]} />
+                    <Text style={styles.mapKeyText}>Private</Text>
+                </View>
+            </View>
+            <View style={styles.mapToggle}>
+                <TouchableOpacity 
+                    style={[styles.toggleOption, mapMode === 'my' && styles.toggleOptionSelected]}
+                    onPress={() => setMapMode('my')}
+                >
+                    <Text style={[styles.toggleText, mapMode === 'my' && styles.toggleTextSelected]}>
+                        My map
+                    </Text>
+                </TouchableOpacity>
+                <TouchableOpacity 
+                    style={[styles.toggleOption, mapMode === 'community' && styles.toggleOptionSelected]}
+                    onPress={() => setMapMode('community')}
+                >
+                    <Text style={[styles.toggleText, mapMode === 'community' && styles.toggleTextSelected]}>
+                        Community map
+                    </Text>
+                </TouchableOpacity>
+            </View>
+        </SafeAreaView>
+    )
+}
+
+const styles = StyleSheet.create ({
+   
+    container: {
+        flex: 1,
+        backgroundColor: colours.background,
+    },
+
+    headerContainer: {
+        marginTop: 10,
+        marginBottom: 10,
+        marginHorizontal: 30,
+        paddingHorizontal: 15,
+        paddingVertical: 10,
+        overflow: 'hidden',
+        borderRadius: 20,
+    },
+    
+    heading: {
+        fontFamily: fonts.heading,
+        fontSize: 28,
+        color: colours.greenText,
+    },
+    
+    headingRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom: 5,
+    },
+
+    spotCountText: {
+        fontFamily: fonts.bodyBold,
+        color: colours.black,
+    },
+
+    map: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    },
+
+    mapPlaceholder: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+
+    mapKeyContainer: {
+        position: 'absolute',
+        bottom: 10,
+        left: 10,
+        backgroundColor: colours.white,
+        borderRadius: 15,
+        paddingHorizontal: 7,
+        paddingVertical: 3,
+        
+    },
+    
+    mapKeyRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginVertical: 3,
+    },
+
+    mapKeyDot: {
+        width: 12,
+        height: 12,
+        borderRadius: 6,
+        marginRight: 8,
+    },
+
+    mapKeyText: {
+        fontFamily: fonts.body,
+        fontSize: 13,
+        color: colours.black,
+    },
+
+    mapToggle: {
+        position: 'absolute',
+        bottom: 100,
+        alignSelf: 'center',
+        flexDirection: 'row',
+        backgroundColor: 'rgba(255,255,255,0.3)',
+        borderRadius: 30,
+        padding: 4,
+        width: 216,
+    },
+
+    toggleOption: {
+        width: 100,
+        paddingVertical: 10,
+        alignItems: 'center',
+        zIndex: 1,
+    },
+
+    toggleOptionSelected: {
+        backgroundColor: colours.searchBarBackground,
+    },
+
+    toggleText: {
+        fontFamily: fonts.body,
+        fontSize: 14,
+        color: colours.darkGreenFill,
+    },
+
+    toggleTextSelected: {
+        color: colours.white,
+    },
+})
+</file>
+
+<file path="screens/ScanScreen.tsx">
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { CameraView, useCameraPermissions } from 'expo-camera';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { colours } from '../const/colours';
+import { fonts } from '../const/fonts';
+import { useRef, useState } from 'react';
+import { identifyPlant } from '../const/api';
+
+export default function ScanScreen() {
+    const [permission, requestPermission] = useCameraPermissions();
+    const cameraRef = useRef<CameraView>(null);
+    const [identified, setIdentified] = useState<string | null>(null);
+
+    async function takePicture() {
+        if (cameraRef.current) {
+            const photo = await cameraRef.current.takePictureAsync({
+                base64: true,
+                quality: 0.5,
+            });
+            
+            if (photo?.base64) {
+                try {
+                    const result = await identifyPlant(photo.base64);
+                    const topResult = result.result.classification.suggestions[0];
+                    setIdentified(`${topResult.name} (${Math.round(topResult.probability * 100)}% confident)`);
+                } catch (error) {
+                    console.error('API error:', error);
+                }
+            }
+
+        }
+    }
+
+    if (!permission) {
+        return <View style={styles.container} />;
+    }
+
+    if (!permission.granted) {
+        return (
+            <SafeAreaView style={styles.permissionContainer}>
+                <Text style={styles.permissionText}>Bountiful needs camera access to identify plants</Text>
+                <TouchableOpacity style={styles.permissionButton} onPress={requestPermission}>
+                    <Text style={styles.permissionButtonText}>Allow Camera</Text>
+                </TouchableOpacity>
+            </SafeAreaView>
+        );
+    }
+
+    return (
+        <View style={styles.container}>
+            <CameraView style={styles.camera} facing="back" ref={cameraRef}>
+                <View style={styles.overlay}>
+                    <Text style={styles.instructionText}>Position the plant in the frame</Text>
+                    <TouchableOpacity style={styles.captureButton} onPress={takePicture}>
+                        <View style={styles.captureButtonInner} />
+                    </TouchableOpacity>
+                    {identified && (
+                        <View style={styles.resultCard}>
+                            <Text style={styles.resultText}>{identified}</Text>
+                        </View>
+                    )}
+                </View>
+            </CameraView>
+        </View>
+    );
+}
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: colours.background,
+    },
+
+    permissionContainer: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 30,
+        backgroundColor: colours.background,
+    },
+
+    permissionText: {
+        fontFamily: fonts.body,
+        fontSize: 16,
+        textAlign: 'center',
+        color: colours.greenText,
+        marginBottom: 20,
+    },
+
+    permissionButton: {
+        backgroundColor: colours.darkGreenFill,
+        paddingHorizontal: 30,
+        paddingVertical: 12,
+        borderRadius: 25,
+    },
+
+    permissionButtonText: {
+        fontFamily: fonts.bodyBold,
+        color: colours.white,
+        fontSize: 16,
+    },
+
+    camera: {
+        flex: 1,
+    },
+
+    overlay: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingVertical: 60,
+    },
+
+    instructionText: {
+        fontFamily: fonts.body,
+        color: colours.white,
+        fontSize: 16,
+    },
+
+    captureButton: {
+        width: 100,
+        height: 100,
+        borderRadius: 50,
+        backgroundColor: colours.searchBarBackground,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+
+    captureButtonInner: {
+        width: 75,
+        height: 75,
+        borderRadius: 37,
+        backgroundColor: colours.white,
+    },
+
+    resultCard: {
+        backgroundColor: 'rgba(255,255,255,0.9)',
+        borderRadius: 15,
+        padding: 15,
+        marginTop: 20,
+
+    },
+
+    resultText: {
+        fontFamily: fonts.bodyBold,
+        fontSize: 16,
+        color: colours.darkGreenFill,
+        textAlign: 'center',
+    },
+});
+</file>
+
+<file path="package.json">
+{
+  "name": "bountiful",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web"
+  },
+  "dependencies": {
+    "@expo-google-fonts/dm-sans": "^0.4.2",
+    "@expo-google-fonts/platypi": "^0.4.1",
+    "@expo-google-fonts/playfair-display": "^0.4.2",
+    "@react-navigation/bottom-tabs": "^7.16.1",
+    "@react-navigation/native": "^7.2.4",
+    "@react-navigation/stack": "^7.10.7",
+    "@types/react-native": "^0.72.8",
+    "expo": "~54.0.33",
+    "expo-blur": "~15.0.8",
+    "expo-camera": "~17.0.10",
+    "expo-font": "~14.0.11",
+    "expo-image": "~3.0.11",
+    "expo-location": "~19.0.8",
+    "expo-secure-store": "~15.0.8",
+    "expo-status-bar": "~3.0.9",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "react-native": "0.81.5",
+    "react-native-gesture-handler": "~2.28.0",
+    "react-native-maps": "1.20.1",
+    "react-native-safe-area-context": "~5.6.0",
+    "react-native-screens": "~4.16.0",
+    "react-native-web": "^0.21.0"
+  },
+  "devDependencies": {
+    "@types/react": "~19.1.0",
+    "typescript": "~5.9.2"
+  },
+  "private": true
+}
+</file>
+
+<file path="screens/PlantScreen.tsx">
+import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from 'react-native'
+import { SafeAreaView } from "react-native-safe-area-context";
+import {colours} from '../const/colours'
+import {fonts} from '../const/fonts'
+import CategoryPill from '../components/CategoryPill';
+import { fetchPlant } from '../const/api';
+import { useState, useEffect } from 'react';
+
+export default function PlantScreen({ route, navigation }: any){
+    const { plantId } = route.params;
+    const [plant, setPlant] = useState<any>(null);
+
+    useEffect(() => {
+        async function loadPlant() {
+            const data = await fetchPlant(String(plantId));
+            setPlant(data);
+        }
+        loadPlant();
+    }, [plantId]);
+
+    return(
+    <SafeAreaView style={styles.container} edges={[]}>
+    
+        <ScrollView>
+            
+            <View style={styles.imageContainer}>
+                <Image 
+                    source={{ uri: plant?.image_url }}
+                    style={styles.imageHeader}
+                />
+                <TouchableOpacity 
+                    style={styles.backButton}
+                    onPress={() => navigation.goBack()}
+                >
+                    <Text style={styles.backArrow}>←</Text>
+                </TouchableOpacity>
+            </View>
+            <View style={styles.header}>
+                <Text style={styles.latinNameText}>{plant?.latin_name}</Text>
+                <View style={styles.plantNameRow}>
+                    <Text style={styles.plantName}>{plant?.name}</Text>
+                    {plant?.unlocked && (
+                        <View style={styles.unlockedBadge}>
+                            <Text style={styles.unlockedTick}>✓</Text>
+                        </View>
+                    )}
+                </View>
+                <View style={styles.categoryRow}>
+                    <CategoryPill label={plant?.category} />
+            
+                </View>                
+            </View>
+            <View style={styles.divider}/>
+            <View style={styles.infoCardGrid}>
+                <View style={styles.infoCard}>
+                    <Text style={styles.infoCardLabel}>Seasonality 📅</Text>
+                    <Text style={styles.infoCardValue}>Month {plant?.season_start} — Month {plant?.season_end}</Text>
+                </View>
+                <View style={styles.infoCard}>
+                    <Text style={styles.infoCardLabel}>Current Maturity 🌿</Text>
+                    <Text style={styles.infoCardValue}>Optimal ready to harvest</Text>
+                </View>
+                <View style={styles.infoCard}>
+                    <Text style={styles.infoCardLabel}>Soil Type 🌍</Text>
+                    <Text style={styles.infoCardValue}>{plant?.soil_type}</Text>
+                </View>
+                <View style={styles.infoCard}>
+                    <Text style={styles.infoCardLabel}>Flavour 👅</Text>
+                    <Text style={styles.infoCardValue}>{plant?.flavour}</Text>
+                </View>
+            </View>
+            <Text style={styles.sectionHeading}>About</Text>
+            <View style={styles.about}>    
+                <Text style={styles.sectionBody}>{plant?.about}</Text>
+            </View>
+            <Text style={styles.sectionHeading}>Harvesting Guide</Text>
+            <View style={styles.harvestingGuideBox}>
+                <View style={styles.harvestingItem}>
+                    <Text style={styles.harvestingIcon}>✂️</Text>
+                    <View style={styles.harvestingTextContainer}>
+                        <Text style={styles.harvestingTitle}>How much to take</Text>
+                        <Text style={styles.sectionBody}>{plant?.harvesting_how_much}</Text>
+                    </View>
+                </View>
+                <View style={styles.harvestingItem}>
+                    <Text style={styles.harvestingIcon}>🌱</Text>
+                    <View style={styles.harvestingTextContainer}>
+                        <Text style={styles.harvestingTitle}>What to pick</Text>
+                        <Text style={styles.sectionBody}>{plant?.harvesting_what_to_pick}</Text>
+                    </View>
+                </View>
+                <View style={styles.harvestingItem}>
+                    <Text style={styles.harvestingIcon}>📍</Text>
+                    <View style={styles.harvestingTextContainer}>
+                        <Text style={styles.harvestingTitle}>Location note</Text>
+                        <Text style={styles.sectionBody}>{plant?.harvesting_location_note}</Text>
+                    </View>
+                </View>
+            </View>
+            <View style={styles.safetyInfoBox}>
+                <Text style={styles.safetyInfoHeading}>⚠️ Stay safe</Text>
+                <Text style={styles.sectionBody}>{plant?.safety_info}</Text>
+            </View>
+            <View style={styles.cookingSuggestions}/>
+        </ScrollView>
+    </SafeAreaView>
+)
+}
+
+const styles = StyleSheet.create ({
+    container: {
+        flex: 1,
+        backgroundColor: colours.background,
+    },
+
+    divider: {
+        height: 1,
+        marginVertical: 5,
+        marginHorizontal: 20,
+        backgroundColor: colours.searchBarBackground,
+    },
+
+    imageContainer: {
+    position: 'relative',
+    },
+    
+    imageHeader: {
+        height: 250,
+        backgroundColor: colours.searchBarBackground,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+
+    backButton: {
+        position: 'absolute',
+        alignContent: 'center',
+        top: 50,
+        left: 15,
+        width: 30,
+        height: 30,
+        backgroundColor: 'rgba(255,255,255,0.7)',
+        borderRadius: 30,
+        padding: 8,
+        zIndex: 10,
+    },
+
+    backArrow: {
+        fontWeight: 'light',
+        fontSize: 15,
+    },
+
+    header: {
+        marginHorizontal: 25,
+        marginTop: 10,
+    },
+
+    latinNameText: {
+        fontFamily: fonts.latinName,
+        fontSize: 15,
+        color: colours.greyText
+    },
+
+    plantName: {
+        fontFamily: fonts.headingRegular,
+        fontSize: 30
+    },
+
+    plantNameRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 10,
+    },
+
+    unlockedBadge: {
+        backgroundColor: colours.privatePin,
+        borderRadius: 12,
+        width: 24,
+        height: 24,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+
+    unlockedTick: {
+        color: colours.white,
+        fontSize: 12,
+        fontWeight: 'bold',
+    },
+
+    categoryRow: {
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        paddingVertical: 10,
+    },
+
+    infoCardGrid: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        marginTop: 10,
+        marginHorizontal: 15
+    },
+
+    infoCard: {
+        width: '48%',
+        backgroundColor: colours.white,
+        borderRadius: 12,
+        padding: 12,
+        margin: '1%',
+    },
+
+    infoCardLabel: {
+        fontFamily: fonts.bodyBold,
+        fontSize: 14,
+        color: colours.black,
+        marginBottom: 4,
+    },
+
+    infoCardValue: {
+        fontFamily: fonts.body,
+        fontSize: 13,
+        color: colours.greyText,
+    },
+
+    about: {
+        marginHorizontal: 25,
+        marginBottom: 5,
+    },
+
+    sectionHeading: {
+        fontFamily: fonts.headingRegular,
+        fontSize: 20,
+        paddingVertical: 8,
+        marginHorizontal: 25
+    },
+
+    sectionBody: {
+        fontFamily: fonts.body,
+    },
+
+    
+    
+    harvestingGuideBox: {
+        backgroundColor: colours.white,
+        borderRadius: 12,
+        padding: 12,
+        marginHorizontal: 25,
+        marginBottom: 10,
+        
+    },
+
+    safetyInfoBox: {
+        backgroundColor: colours.safetyInfoBox,
+        marginHorizontal: 25,
+        marginVertical: 10,
+        borderLeftWidth: 10,
+        borderLeftColor: colours.publicPin,
+        paddingHorizontal: 15,
+        paddingVertical: 10,
+    },
+
+    
+    safetyInfoHeading: {
+        fontFamily: fonts.bodyBold,
+        fontSize: 18,
+        marginBottom: 10,
+    },
+
+    cookingSuggestions: {
+
+    },
+
+    harvestingItem: {
+    flexDirection: 'row',
+    marginVertical: 10,
+    gap: 12,
+    },
+
+    harvestingTextContainer: {
+        flex: 1,
+    },
+
+    harvestingIcon: {
+        fontSize: 20,
+        marginTop: 2,
+    },
+
+    harvestingTitle: {
+        fontFamily: fonts.bodyBold,
+        fontSize: 14,
+        color: colours.black,
+        marginBottom: 4,
+    },
+})
+</file>
+
+<file path="App.tsx">
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { StatusBar } from 'expo-status-bar';
+import { useFonts } from 'expo-font';
+import { Platypi_400Regular, Platypi_700Bold } from '@expo-google-fonts/platypi';
+import { DMSans_400Regular, DMSans_500Medium, DMSans_700Bold, DMSans_400Regular_Italic } from '@expo-google-fonts/dm-sans';
+import EncyclopediaScreen from './screens/EncyclopediaScreen';
+import MapScreen from './screens/MapScreen';
+import ScanScreen from './screens/ScanScreen';
+import PlantScreen from './screens/PlantScreen'
+import SplashScreen from './screens/SplashScreen';
+import LoginScreen from './screens/LoginScreen';
+import { createStackNavigator } from '@react-navigation/stack';
+
+const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
+
+function TabNavigator() {
+  return (
+    <Tab.Navigator screenOptions={{ headerShown: false }}>
+      <Tab.Screen name="Map" component={MapScreen} />
+      <Tab.Screen name="Scan" component={ScanScreen} />
+      <Tab.Screen name="Plants" component={EncyclopediaScreen} />
+    </Tab.Navigator>
+  );
+}
+
+export default function App() {
+
+  const [fontsLoaded] = useFonts({
+  Platypi_400Regular,
+  Platypi_700Bold,
+  DMSans_400Regular,
+  DMSans_500Medium,
+  DMSans_700Bold,
+  DMSans_400Regular_Italic
+  });
+
+  if (!fontsLoaded) return null;
+  
+    return (
+    <NavigationContainer>
+      <StatusBar style="dark" />
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="Splash" component={SplashScreen} />
+        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Main" component={TabNavigator} />
+        <Stack.Screen name="PlantScreen" component={PlantScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+</file>
+
+<file path="screens/EncyclopediaScreen.tsx">
+import {View, Text, StyleSheet, FlatList, TouchableOpacity, TextInput, ScrollView} from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useState, useEffect } from 'react';
+import { fetchPlants } from '../const/api';
+import {colours} from '../const/colours'
+import {fonts} from '../const/fonts'
+import { BlurView } from 'expo-blur';
+import { Image } from 'expo-image';
+import CategoryPill from '../components/CategoryPill';
+import { getCategoryColour } from '../const/helpers';
+
+export default function EncyclopediaScreen({ navigation }: any) {
+
+    const [plants, setPlantsData] = useState<any[]>([]);
+
+    useEffect(() => {
+        async function loadPlants() {
+            const data = await fetchPlants();
+            setPlantsData(data);
+        }
+        loadPlants();
+    }, []);
+
+    const unlockedPlants = plants.filter(plant => plant.unlocked === true).length
+    const totalPlants = plants.length
+    const plantCategories = ['All', 'Fungi', 'Fruit', 'Flowers', 'Leaves', 'Nuts'];
+    
+    //filter pill logic
+    const [selectedCategory, setSelectedCategory] = useState('All');
+    let filteredPlants;
+    if (selectedCategory === 'All') {
+      filteredPlants = plants;
+    } else {
+      filteredPlants = plants.filter(plant => plant.category === selectedCategory);
+    }
+    
+    //search bar logic - filtering based on character entry
+    const [searchText, setSearchText] = useState('');
+    const searchedPlants = searchText === '' 
+        ? filteredPlants 
+        : filteredPlants.filter(plant => plant.name.toLowerCase().includes(searchText.toLowerCase()));
+
+    return (
+        <SafeAreaView style={styles.container} edges={['top']}>
+            <FlatList
+                data={searchedPlants}
+                numColumns={2}
+                keyExtractor={(item) => item.id}
+                renderItem={({ item }) => <PlantCard plant={item} navigation={navigation} />}
+                columnWrapperStyle={{paddingHorizontal: 8 }}
+                contentContainerStyle={{ paddingBottom: 20}}
+                ListHeaderComponent={
+                    <View>
+                        <BlurView intensity={100} tint="light" style={styles.headerContainer}>
+                            <View style={styles.headingRow}>
+                                <Text style={styles.heading}>My Plants 🌸</Text>
+                                <View style={styles.foundBadge}>
+                                    <Text style={styles.foundText}>{unlockedPlants}/{totalPlants} found</Text>
+                                </View>
+                            </View>
+                            <View style={styles.searchBar}>
+                                <TextInput 
+                                    placeholder="Search plants..."
+                                    onChangeText={(text) => setSearchText(text)}
+                                />
+                            </View>
+                        </BlurView>
+                        <ScrollView 
+                            horizontal={true} 
+                            showsHorizontalScrollIndicator={false}
+                            style={styles.filterList}>
+                            {plantCategories.map(category => (
+                                <TouchableOpacity 
+                                    key={category} 
+                                    style={[styles.filterPill, selectedCategory === category && styles.filterPillSelected]}
+                                    onPress={() => setSelectedCategory(category)}
+                                >
+                                    <Text style={[styles.filterText, selectedCategory === category && styles.filterTextSelected]}>
+                                        {category}
+                                    </Text>
+                                </TouchableOpacity>
+                            ))}
+                        </ScrollView>
+                    </View>
+                }
+            />
+        </SafeAreaView>
+)
+}
+
+function PlantCard({ plant, navigation }: { plant: any, navigation: any }) {
+    
+  return (
+    <TouchableOpacity style={styles.card}
+    onPress={() => navigation.navigate('PlantScreen', { plantId: plant.id })}>
+      <Image
+        source={{ uri: plant.image_url }}
+        style={styles.cardImage}
+        contentFit='cover'
+        transition={200}
+      />
+        {plant.unlocked && (
+            <View style={styles.unlockedBadge}>
+                <Text style={styles.unlockedTick}>✓</Text>
+            </View>
+        )}
+      <View style={styles.cardInfo}>
+        <Text style={styles.cardName}>{plant.name}</Text>
+        <View style={[styles.cardCategoryPill]}>
+            <Text style={[styles.cardCategory]}>{plant.category}</Text>
+        </View>
+      </View>
+      {/* Will replace with real date/location from database */}
+      {/*<Text style={styles.cardDescription}>Date Logged/Location</Text>*/}
+    </TouchableOpacity>
+  );
+}
+
+const styles = StyleSheet.create({
+    
+    container: {
+        flex: 1,
+        backgroundColor: colours.background,
+    },
+
+    headerContainer: {
+        marginTop: 10,
+        marginBottom: 10,
+        marginHorizontal: 30,
+        paddingHorizontal: 15,
+        paddingVertical: 10,
+        borderRadius: 20,
+        borderWidth: 1,
+        borderColor: colours.searchBarBackground,
+        backgroundColor: '#ebf4eb',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.06,
+        shadowRadius: 12,
+        elevation: 3,
+        overflow: 'hidden',
+        
+    },
+    
+    heading: {
+        fontFamily: fonts.heading,
+        fontSize: 28,
+        color: colours.greenText,
+    },
+
+    headingRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom: 10,
+    },
+    
+    foundBadge: {
+        backgroundColor: colours.darkGreenFill,
+        borderRadius: 20,
+        paddingHorizontal: 12,
+        paddingVertical: 2,
+    },
+
+    foundText: {
+        color: colours.white,
+        fontFamily: fonts.body,
+        fontSize: 10,
+    },
+
+    subheading: {
+        fontFamily: fonts.bodyBold,
+        fontWeight: 'bold',
+        fontSize: 11,
+        color: colours.black,
+        marginTop: 10
+    },
+
+    searchBar: {
+        backgroundColor: colours.searchBarBackground,
+        borderRadius: 10,
+        paddingHorizontal: 10,
+        paddingVertical: 5,
+        marginBottom: 5,
+    },
+
+    bar1: {
+        height: 6,
+        backgroundColor: colours.searchBarBackground,
+        borderRadius: 3,
+        marginTop: 4,
+    },
+
+    bar2: {
+        height: 6,
+        backgroundColor: colours.greenText,
+        borderRadius: 3,
+    },
+
+    filterList: {
+        marginTop: 0,
+        marginBottom: 8,
+        flexGrow: 0,
+        paddingHorizontal: 15
+    },
+
+    filterPill: {
+        backgroundColor: colours.searchBarBackground,
+        margin: 3,
+        paddingHorizontal: 12,
+        paddingVertical: 3,
+        borderRadius:20,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+
+    filterPillSelected: {
+        color: colours.white,
+        backgroundColor: colours.darkGreenFill,
+        margin: 3,
+        paddingHorizontal: 12,
+        paddingVertical: 3,
+        borderRadius:20,
+        alignItems: 'center',
+        justifyContent: 'center', 
+    },
+
+    filterText: {
+        color: colours.greenText,
+        fontSize: 13,
+        fontFamily: fonts.bodyBold
+    },
+
+    filterTextSelected: {
+        color: colours.white,
+        fontSize: 13,
+        fontFamily: fonts.bodyBold
+    },
+    
+    card: {
+        width: '47%',
+        margin: 7,
+        borderRadius: 15,
+        overflow: 'hidden',
+        height: 120,
+    },
+    
+    cardImage: {
+        width: '100%',
+        height: '100%',
+        position: 'absolute',
+    },
+
+    unlockedBadge: {
+        position: 'absolute',
+        top: 8,
+        right: 8,
+        backgroundColor: colours.privatePin,
+        borderRadius: 12,
+        width: 24,
+        height: 24,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+
+    unlockedTick: {
+        color: colours.white,
+        fontSize: 12,
+        fontWeight: 'bold',
+    },
+        
+    cardInfo: {
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingVertical: 8,
+        paddingHorizontal: 8,
+        backgroundColor: 'rgba(255,255,255,0.90)',
+    },
+
+    cardDescription: {
+        paddingLeft: 8,
+        paddingBottom: 8,
+        fontFamily: fonts.body,
+        fontSize: 10,
+    },
+
+    cardCategoryPill: {
+        
+        borderRadius: 15,
+        paddingHorizontal: 12,
+        alignSelf: 'flex-start',
+        paddingVertical: 3,
+        backgroundColor: colours.searchBarBackground,
+    },
+    
+    cardCategory: {
+        fontFamily: fonts.bodyBold,
+        fontSize: 9,
+        color: colours.greenText,
+        
+    },
+   
+    cardName: {
+        fontFamily: fonts.bodyBold,
+        fontWeight: 'bold',
+        fontSize: 13,
+        color: colours.black,
+        flex: 1,
+        marginRight: 6,
+    },
+})
+</file>
+
+</files>

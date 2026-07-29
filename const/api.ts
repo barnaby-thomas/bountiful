@@ -38,3 +38,20 @@ export const identifyPlant = async (base64Image: string) => {
         return null;
     }
 };
+
+export const userLogin = async ( email: string, password: string) => {
+    try{
+        const login = await fetch(`${API_URL}/login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                },
+            body: JSON.stringify({ email, password }),
+        });
+        const data = await login.json();
+        return data;
+    } catch (error){
+        console.error('Login failed:', error);
+        return null;
+    }
+};
