@@ -14,6 +14,10 @@ export default function RegisterScreen({ navigation } : any) {
 
     async function processRegistration() {
         const result = await userRegistration(email, password, username);
+        if (!email || !password || !username) {
+            setError('Please fill in all fields');
+            return;
+        }
         if (result?.id) {
             navigation.navigate('Login');
         } else {
