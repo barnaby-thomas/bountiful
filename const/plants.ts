@@ -1,3 +1,5 @@
+/* PLACEHOLDER PLANT INFORMATION PRIOR TO CREATING THE DATABASE */
+
 export const plants = [
   {
     id: '1',

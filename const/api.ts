@@ -55,3 +55,20 @@ export const userLogin = async ( email: string, password: string) => {
         return null;
     }
 };
+
+export const userRegistration = async ( email: string, password: string, username: string ) => {
+    try{
+        const register = await fetch(`${API_URL}/register`, {
+            method: 'POST',
+            headers: {
+                'Content-Type' : 'application/json',
+            },
+            body: JSON.stringify({ email, password, username })
+        })
+        const data = await register.json();
+        return data
+    } catch (error){
+        console.error('Registration failed:', error);
+        return null;
+    }
+};
