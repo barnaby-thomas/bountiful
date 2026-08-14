@@ -4,30 +4,46 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { colours } from '../const/colours';
 import { fonts } from '../const/fonts';
 import { useRef, useState } from 'react';
-import { identifyPlant } from '../const/api';
+import { identifyPlant, findPlantByLatinName } from '../const/api';
 
-export default function ScanScreen() {
+export default function ScanScreen({ navigation } : any) {
     const [permission, requestPermission] = useCameraPermissions();
     const cameraRef = useRef<CameraView>(null);
     const [identified, setIdentified] = useState<string | null>(null);
+    const [foundPlant, setFoundPlant] = useState<any>(null);
 
     async function takePicture() {
-        if (cameraRef.current) {
-            const photo = await cameraRef.current.takePictureAsync({
-                base64: true,
-                quality: 0.5,
-            });
-            
-            if (photo?.base64) {
-                try {
-                    const result = await identifyPlant(photo.base64);
-                    const topResult = result.result.classification.suggestions[0];
-                    setIdentified(`${topResult.name} (${Math.round(topResult.probability * 100)}% confident)`);
-                } catch (error) {
-                    console.error('API error:', error);
+    if (cameraRef.current) {
+        const photo = await cameraRef.current.takePictureAsync({
+            base64: true,
+            quality: 0.5,
+        });
+        
+        if (photo?.base64) {
+            try {
+                const result = await identifyPlant(photo.base64);
+                if (!result) return;
+                
+                const topResult = result.result.classification.suggestions[0];
+                const latinName = topResult.name;
+                const confidence = Math.round(topResult.probability * 100);
+                
+                // try to find in database
+                const dbPlant = await findPlantByLatinName(latinName);
+                if (dbPlant && !dbPlant.error) {
+                    // plant found in database - navigate to map with modal pre-filled
+                    navigation.navigate('Main', {
+                        screen: 'Map',
+                        params: { plantToLog: dbPlant }
+                    });
+                } else {
+                    // plant not in Sussex database - just show result
+                    setIdentified(`${latinName} (${confidence}% confident) — not in our Sussex database yet`);
                 }
+            } catch (error) {
+                console.error('API error:', error);
             }
-
+            }
         }
     }
 
