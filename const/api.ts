@@ -100,3 +100,20 @@ export const fetchSpots = async (userId: number) => {
         return [];
     }
 };
+
+export const unlockPlant = async (userId: number, plantId: number) => {
+    try {
+        const response = await fetch(`${API_URL}/unlock`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ userId, plantId }),
+        });
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error unlocking plant:', error);
+        return null;
+    }
+};
