@@ -5,6 +5,7 @@ import {fonts} from '../const/fonts'
 import CategoryPill from '../components/CategoryPill';
 import { fetchPlant } from '../const/api';
 import { useState, useEffect } from 'react';
+import { getMonth } from '../const/helpers';
 
 export default function PlantScreen({ route, navigation }: any){
     const { plantId } = route.params;
@@ -54,7 +55,9 @@ export default function PlantScreen({ route, navigation }: any){
             <View style={styles.infoCardGrid}>
                 <View style={styles.infoCard}>
                     <Text style={styles.infoCardLabel}>Seasonality 📅</Text>
-                    <Text style={styles.infoCardValue}>Month {plant?.season_start} — Month {plant?.season_end}</Text>
+                    <Text style={styles.infoCardValue}>
+                        {getMonth(plant?.season_start)} — {getMonth(plant?.season_end)}
+                    </Text>
                 </View>
                 <View style={styles.infoCard}>
                     <Text style={styles.infoCardLabel}>Current Maturity 🌿</Text>
