@@ -117,3 +117,14 @@ export const unlockPlant = async (userId: number, plantId: number) => {
         return null;
     }
 };
+
+export const findPlantByLatinName = async (latinName: string) => {
+    try {
+        const response = await fetch(`${API_URL}/plants/latin/${encodeURIComponent(latinName)}`);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error finding plant:', error);
+        return null;
+    }
+};
