@@ -72,3 +72,31 @@ export const userRegistration = async ( email: string, password: string, usernam
         return null;
     }
 };
+
+export const saveSpot = async (userId: number, latitude: number, longitude: number, notes: string) => {
+    try {
+        const response = await fetch(`${API_URL}/spots`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ userId, latitude, longitude, notes }),
+        });
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error saving spot:', error);
+        return null;
+    }
+};
+
+export const fetchSpots = async (userId: number) => {
+    try {
+        const response = await fetch(`${API_URL}/spots/${userId}`);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error fetching spots:', error);
+        return [];
+    }
+};
