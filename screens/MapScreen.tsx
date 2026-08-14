@@ -1,17 +1,22 @@
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Modal, TextInput } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
-import {colours} from '../const/colours'
-import {fonts} from '../const/fonts'
-import MapView from 'react-native-maps';
+import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
 import { useState, useEffect } from 'react';
 import { BlurView } from 'expo-blur';
+import { colours } from '../const/colours';
+import { fonts } from '../const/fonts';
+import { saveSpot, fetchSpots } from '../const/api';
 
 export default function MapScreen() {
-
     const [location, setLocation] = useState<Location.LocationObject | null>(null);
     const [permissionGranted, setPermissionGranted] = useState(false);
-    const [mapMode, setMapMode] = useState<'my' | 'community'>('my');
+    const [spots, setSpots] = useState<any[]>([]);
+    const [mapMode, setMapMode] = useState<'my' | 'community'>('my'); // community map feature to be added
+    const [showModal, setShowModal] = useState(false);
+    const [spotNotes, setSpotNotes] = useState('');
+
+    const userId = 1; // to be replaced with real user id after auth
 
     useEffect(() => {
         async function getLocation() {
@@ -23,9 +28,33 @@ export default function MapScreen() {
             }
         }
         getLocation();
+        loadSpots();
     }, []);
+
+    async function loadSpots() {
+        const data = await fetchSpots(userId);
+        setSpots(data);
+    }
+
+    function addSpot() {
+        setShowModal(true);
+    }
+
+    async function confirmSpot() {
+        if (!location) return;
+        await saveSpot(
+            userId,
+            location.coords.latitude,
+            location.coords.longitude,
+            spotNotes
+        );
+        setSpotNotes('');
+        setShowModal(false);
+        loadSpots();
+    }
+
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={styles.container} edges={['top']}>
             {permissionGranted && location ? (
                 <MapView
                     style={styles.map}
@@ -36,7 +65,19 @@ export default function MapScreen() {
                         latitudeDelta: 0.01,
                         longitudeDelta: 0.01,
                     }}
-                />
+                >
+                    {spots.map(spot => (
+                        <Marker
+                            key={spot.id}
+                            coordinate={{
+                                latitude: parseFloat(spot.latitude),
+                                longitude: parseFloat(spot.longitude),
+                            }}
+                            title={spot.notes}
+                            pinColor={colours.darkGreenFill}
+                        />
+                    ))}
+                </MapView>
             ) : (
                 <View style={styles.mapPlaceholder}>
                     <Text>Waiting for location permission...</Text>
@@ -47,36 +88,36 @@ export default function MapScreen() {
                     <Text style={styles.heading}>My Foraging Map</Text> 
                     <Text style={styles.heading}>🌳</Text>
                 </View>
-                <Text style={styles.spotCountText}>5 spots logged</Text>     
+                <Text style={styles.spotCountText}>{spots.length} spots logged</Text>     
             </BlurView>
-            <View style={styles.mapKeyContainer}>
-                <View style={styles.mapKeyRow}>
-                    <View style={[styles.mapKeyDot, { backgroundColor: colours.publicPin }]} />
-                    <Text style={styles.mapKeyText}>Public</Text>
+            <TouchableOpacity style={styles.addButton} onPress={addSpot}>
+                <Text style={styles.addButtonText}>+</Text>
+            </TouchableOpacity>
+            <Modal
+                visible={showModal}
+                transparent={true}
+                animationType="slide"
+            >
+                <View style={styles.modalOverlay}>
+                    <View style={styles.modalBox}>
+                        <Text style={styles.modalTitle}>Log Foraging Spot</Text>
+                        <Text style={styles.modalSubtitle}>📍 Your current location will be saved</Text>
+                        <TextInput
+                            style={styles.modalInput}
+                            placeholder="Add a note... (e.g. Wild garlic patch)"
+                            value={spotNotes}
+                            onChangeText={setSpotNotes}
+                            multiline
+                        />
+                        <TouchableOpacity style={styles.modalConfirm} onPress={confirmSpot}>
+                            <Text style={styles.modalConfirmText}>Log Spot</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.modalCancel} onPress={() => setShowModal(false)}>
+                            <Text style={styles.modalCancelText}>Cancel</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
-                <View style={styles.mapKeyRow}>
-                    <View style={[styles.mapKeyDot, { backgroundColor: colours.privatePin }]} />
-                    <Text style={styles.mapKeyText}>Private</Text>
-                </View>
-            </View>
-            <View style={styles.mapToggle}>
-                <TouchableOpacity 
-                    style={[styles.toggleOption, mapMode === 'my' && styles.toggleOptionSelected]}
-                    onPress={() => setMapMode('my')}
-                >
-                    <Text style={[styles.toggleText, mapMode === 'my' && styles.toggleTextSelected]}>
-                        My map
-                    </Text>
-                </TouchableOpacity>
-                <TouchableOpacity 
-                    style={[styles.toggleOption, mapMode === 'community' && styles.toggleOptionSelected]}
-                    onPress={() => setMapMode('community')}
-                >
-                    <Text style={[styles.toggleText, mapMode === 'community' && styles.toggleTextSelected]}>
-                        Community map
-                    </Text>
-                </TouchableOpacity>
-            </View>
+            </Modal>
         </SafeAreaView>
     )
 }
@@ -190,5 +231,92 @@ const styles = StyleSheet.create ({
 
     toggleTextSelected: {
         color: colours.white,
+    },
+
+    addButton: {
+        position: 'absolute',
+        bottom: 20,
+        right: 20,
+        backgroundColor: colours.searchBarBackground,
+        width: 56,
+        height: 56,
+        borderRadius: 28,
+        alignItems: 'center',
+        justifyContent: 'center',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.3,
+        shadowRadius: 4,
+        elevation: 5,
+    },
+
+    addButtonText: {
+        color: colours.darkGreenFill,
+        fontSize: 30,
+        fontWeight: 'bold',
+        lineHeight: 34,
+    },
+
+    modalOverlay: {
+        flex: 1,
+        //backgroundColor: 'rgba(0,0,0,0.5)',
+        justifyContent: 'flex-end',
+    },
+
+    modalBox: {
+        backgroundColor: colours.background,
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+        padding: 24,
+        paddingBottom: 40,
+    },
+
+    modalTitle: {
+        fontFamily: fonts.heading,
+        fontSize: 22,
+        color: colours.darkGreenFill,
+        marginBottom: 6,
+    },
+
+    modalSubtitle: {
+        fontFamily: fonts.body,
+        fontSize: 13,
+        color: colours.greyText,
+        marginBottom: 16,
+    },
+
+    modalInput: {
+        backgroundColor: colours.searchBarBackground,
+        borderRadius: 10,
+        padding: 12,
+        fontFamily: fonts.body,
+        fontSize: 14,
+        minHeight: 80,
+        marginBottom: 16,
+    },
+
+    modalConfirm: {
+        backgroundColor: colours.darkGreenFill,
+        borderRadius: 12,
+        padding: 14,
+        alignItems: 'center',
+        marginBottom: 10,
+    },
+
+    modalConfirmText: {
+        fontFamily: fonts.bodyBold,
+        color: colours.white,
+        fontSize: 16,
+    },
+
+    modalCancel: {
+        alignItems: 'center',
+        padding: 10,
+    },
+
+    modalCancelText: {
+        fontFamily: fonts.body,
+        color: colours.greyText,
+        fontSize: 14,
     },
 })
