@@ -22,7 +22,10 @@ function TabNavigator() {
   return (
     <Tab.Navigator screenOptions={{ headerShown: false }}>
       <Tab.Screen name="Map" component={MapScreen} />
-      <Tab.Screen name="Scan" component={ScanScreen} />
+      <Tab.Screen 
+          name="Scan" 
+          children={(props) => <ScanScreen {...props} />}
+      />
       <Tab.Screen name="Plants" component={EncyclopediaScreen} />
     </Tab.Navigator>
   );

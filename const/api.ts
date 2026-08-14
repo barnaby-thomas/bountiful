@@ -73,14 +73,12 @@ export const userRegistration = async ( email: string, password: string, usernam
     }
 };
 
-export const saveSpot = async (userId: number, latitude: number, longitude: number, notes: string) => {
+export const saveSpot = async (userId: number, latitude: number, longitude: number, notes: string, plantId?: number) => {
     try {
         const response = await fetch(`${API_URL}/spots`, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ userId, latitude, longitude, notes }),
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ userId, latitude, longitude, notes, plantId }),
         });
         const data = await response.json();
         return data;

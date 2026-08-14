@@ -6,17 +6,26 @@ import { useState, useEffect } from 'react';
 import { BlurView } from 'expo-blur';
 import { colours } from '../const/colours';
 import { fonts } from '../const/fonts';
-import { saveSpot, fetchSpots } from '../const/api';
+import { saveSpot, fetchSpots, unlockPlant } from '../const/api';
 
-export default function MapScreen() {
+export default function MapScreen( {route}: any ) {
     const [location, setLocation] = useState<Location.LocationObject | null>(null);
     const [permissionGranted, setPermissionGranted] = useState(false);
     const [spots, setSpots] = useState<any[]>([]);
     const [mapMode, setMapMode] = useState<'my' | 'community'>('my'); // community map feature to be added
     const [showModal, setShowModal] = useState(false);
     const [spotNotes, setSpotNotes] = useState('');
+    const [selectedPlant, setSelectedPlant] = useState<any>(null);
 
     const userId = 1; // to be replaced with real user id after auth
+
+    useEffect(() => {
+        if (route?.params?.plantToLog) {
+            setSpotNotes('');
+            setSelectedPlant(route.params.plantToLog);
+            setShowModal(true);
+        }
+    }, [route?.params?.plantToLog]);
 
     useEffect(() => {
         async function getLocation() {
@@ -46,9 +55,14 @@ export default function MapScreen() {
             userId,
             location.coords.latitude,
             location.coords.longitude,
-            spotNotes
+            spotNotes,
+            selectedPlant?.id
         );
+        if (selectedPlant) {
+            await unlockPlant(userId, selectedPlant.id);
+        }
         setSpotNotes('');
+        setSelectedPlant(null);
         setShowModal(false);
         loadSpots();
     }
@@ -73,9 +87,11 @@ export default function MapScreen() {
                                 latitude: parseFloat(spot.latitude),
                                 longitude: parseFloat(spot.longitude),
                             }}
-                            title={spot.notes}
-                            pinColor={colours.darkGreenFill}
-                        />
+                            title={spot.plant_name || spot.notes}
+                            description={spot.notes}
+                        >
+                            
+                        </Marker>
                     ))}
                 </MapView>
             ) : (
@@ -101,6 +117,9 @@ export default function MapScreen() {
                 <View style={styles.modalOverlay}>
                     <View style={styles.modalBox}>
                         <Text style={styles.modalTitle}>Log Foraging Spot</Text>
+                        {selectedPlant && (
+                            <Text style={styles.modalPlantName}>🌿 {selectedPlant.name}</Text>
+                        )}
                         <Text style={styles.modalSubtitle}>📍 Your current location will be saved</Text>
                         <TextInput
                             style={styles.modalInput}
@@ -201,6 +220,7 @@ const styles = StyleSheet.create ({
         color: colours.black,
     },
 
+
     mapToggle: {
         position: 'absolute',
         bottom: 100,
@@ -276,6 +296,13 @@ const styles = StyleSheet.create ({
         fontSize: 22,
         color: colours.darkGreenFill,
         marginBottom: 6,
+    },
+
+    modalPlantName: {
+        fontFamily: fonts.bodyBold,
+        fontSize: 18,
+        color: colours.darkGreenFill,
+        marginBottom: 8,
     },
 
     modalSubtitle: {

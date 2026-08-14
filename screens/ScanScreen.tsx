@@ -21,31 +21,28 @@ export default function ScanScreen({ navigation } : any) {
         
         if (photo?.base64) {
             try {
-                const result = await identifyPlant(photo.base64);
-                if (!result) return;
+                // const result = await identifyPlant(photo.base64);
+                // const topResult = result.result.classification.suggestions[0];
+                // const latinName = topResult.name;
+                // const confidence = Math.round(topResult.probability * 100);
                 
-                const topResult = result.result.classification.suggestions[0];
-                const latinName = topResult.name;
-                const confidence = Math.round(topResult.probability * 100);
-                
-                // try to find in database
+                const latinName = 'Allium ursinum'; // Nettle - hardcoded for testing
+
                 const dbPlant = await findPlantByLatinName(latinName);
                 if (dbPlant && !dbPlant.error) {
-                    // plant found in database - navigate to map with modal pre-filled
                     navigation.navigate('Main', {
                         screen: 'Map',
                         params: { plantToLog: dbPlant }
                     });
                 } else {
-                    // plant not in Sussex database - just show result
-                    setIdentified(`${latinName} (${confidence}% confident) — not in our Sussex database yet`);
+                    setIdentified(`${latinName} - not in Sussex database yet`);
                 }
             } catch (error) {
                 console.error('API error:', error);
             }
-            }
         }
     }
+}
 
     if (!permission) {
         return <View style={styles.container} />;
@@ -163,4 +160,4 @@ const styles = StyleSheet.create({
         color: colours.darkGreenFill,
         textAlign: 'center',
     },
-});
+})
