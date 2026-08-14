@@ -5,7 +5,8 @@ import { colours } from "../const/colours";
 import { fonts } from "../const/fonts";
 import { userLogin } from "../const/api";
 import * as SecureStore from 'expo-secure-store';
-export default function LoginScreen({ navigation }: any) {
+
+export default function LoginScreen({ navigation, onLogin }: any) {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -15,6 +16,7 @@ export default function LoginScreen({ navigation }: any) {
         const result = await userLogin(email, password);
         if (result?.token) {
             await SecureStore.setItemAsync('token', result.token);
+            onLogin();
             navigation.navigate('Main');
         } else {
             setError('Incorrect email or password')

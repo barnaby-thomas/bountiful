@@ -12,6 +12,8 @@ import SplashScreen from './screens/SplashScreen';
 import LoginScreen from './screens/LoginScreen';
 import { createStackNavigator } from '@react-navigation/stack';
 import RegisterScreen from './screens/RegisterScreen';
+import { useState, useEffect } from 'react';
+import * as SecureStore from 'expo-secure-store';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -37,18 +39,39 @@ export default function App() {
   DMSans_400Regular_Italic
   });
 
-  if (!fontsLoaded) return null;
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    async function checkToken() {
+      const token = await SecureStore.getItemAsync('token');
+      setIsLoggedIn(!!token);
+    }
+    checkToken();
+  }, []);
+
+
+  if (!fontsLoaded || isLoggedIn === null) return null;
   
     return (
     <NavigationContainer>
       <StatusBar style="dark" />
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Splash" component={SplashScreen} />
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Register" component={RegisterScreen} />
-        <Stack.Screen name="Main" component={TabNavigator} />
-        <Stack.Screen name="PlantScreen" component={PlantScreen} />
+        {isLoggedIn ? (
+          <>
+            <Stack.Screen name="Main" component={TabNavigator} />
+            <Stack.Screen name="PlantScreen" component={PlantScreen} />
+          </>
+        ) : (
+          <>
+            <Stack.Screen name="Splash" component={SplashScreen} />
+            <Stack.Screen 
+                name="Login" 
+                children={(props) => <LoginScreen {...props} onLogin={() => setIsLoggedIn(true)} />}
+            />
+            <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
+          </>
+        )}
       </Stack.Navigator>
     </NavigationContainer>
-  );
+);
 }
